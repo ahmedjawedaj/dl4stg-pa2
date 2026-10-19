@@ -84,3 +84,13 @@ Read the complete Q1 brief and matched its six required headings to the proposal
 2026-10-19T18:25:51.975588+05:00: phase 3 remains healthy, C seed 1 has 21 completed epochs and is in epoch 22. Its measured mean training epoch is 33.99 s. Existing PID 40259 is continuing normally; D candidates will start automatically after this run. No intervention or duplicate launch.
 
 2026-10-19T18:36:10.845343+05:00: both B and C are complete on both seeds. C seed 1 final checkpoint verified on CPU with finite tensors after 30 full-data epochs, mean training epoch 33.84 s. Existing phase 3 advanced to D_k5 seed 0 (3/30 complete), averaging 98.34 training seconds/epoch. This is substantially slower than A-C. The two D_k5 runs alone require about 100 minutes plus validation, and the remaining D_dil/D_p8 timings are not yet measured. Provisionally allow another 2-3 hours for D screening and final evaluation, then report completion; refine from actual candidate timings. No protocol changes or duplicate jobs.
+
+2026-10-19T18:45:57.883992+05:00: D_k5 seed 0 has 10 completed epochs and is in epoch 11. Mean training epoch is now 84.79 s (recent epochs 73-77 s). The job is running normally with finite logged losses, although validation E(5) has plateaued near 0.03947. Preserve the full fixed 30-epoch protocol and all candidates; do not tune or select from test results. No intervention needed.
+
+2026-10-19T18:55:58.590608+05:00: D_k5 seed 0 is healthy at 17 completed epochs, currently epoch 18. Mean training epoch 83.74 s. Existing phase 3 PID 40259 continues without errors. Fixed protocol and candidate selection remain unchanged; no new launch.
+
+2026-10-19T19:06:03.101505+05:00: D_k5 seed 0 has 23 complete epochs, mean training epoch 87.67 s (recent about 100 s). Existing phase 3 process and resume progress are healthy. Continue the fixed run and validation-only selection without intervention.
+
+2026-10-19T19:15:55.591103+05:00: D_k5 seed 0 has 28 complete epochs and is in epoch 29, mean training epoch 90.46 s. Existing process and per-epoch recovery are healthy. Expect automatic seed-1 transition after the full run and validation scoring. No intervention.
+
+2026-10-19T19:26:02.799411+05:00: D_k5 seed 0 completed all 30 full-data epochs, final checkpoint loaded on CPU with finite tensors, resume removed. Mean training epoch 91.83 s. Existing phase 3 advanced to D_k5 seed 1, 3 complete epochs at inspection (mean 110.36 s). Retain the observed validation plateau as an actual candidate outcome; do not discard or rerun with changed settings. The remaining two designs will still be compared on both seeds and validation only.
