@@ -14,6 +14,8 @@
 
 {{d_selection}}
 
+**Timing context.** The D_k5 seed-1 screening run spanned a MacBook sleep/wake interval. The original training process continued after wake, and all raw epoch timer readings are retained. Power events and the interruption record are in `logs/sleep_wake_2026-10-19.txt` and `results/sleep_interruption.json`. Timing comparisons reflect these execution conditions and ordinary use of the Mac during the experiments.
+
 <div class="landscape-table">
 
 **Table 5.** Models A to D on the test split. Training time is the mean wall-clock time per epoch over the 30 epochs. Inference time is the time to predict the 1,000 original test videos (1×, $t = 1$) at batch 32 under `eval()` and `no_grad()`, timed after the batches are on the device, as the median of three passes after one warm-up pass.

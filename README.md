@@ -29,3 +29,4 @@ experiments only). It lists every gap (missing part, answer, table, image, GIF, 
 
 To use an already-installed Chromium instead of downloading another browser, set
 `PA2_CHROMIUM_EXECUTABLE` to its executable path when invoking the builder.
+If Pandoc is installed outside the current PATH, set `PA2_PANDOC` to its executable path.

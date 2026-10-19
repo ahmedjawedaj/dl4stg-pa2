@@ -128,7 +128,7 @@ def readiness(md, ph, absent):
 
 def render(src):
     html = os.path.join(REP, "report.html")
-    subprocess.run(["pandoc", src, "-f", "markdown+tex_math_dollars+pipe_tables+raw_html",
+    subprocess.run([os.environ.get("PA2_PANDOC", "pandoc"), src, "-f", "markdown+tex_math_dollars+pipe_tables+raw_html",
                     "-t", "html5", "--standalone", "--mathml", "--css", "style.css",
                     "--metadata", "pagetitle=DL4STG Assignment 2", "-o", html],
                    check=True, cwd=REP)
