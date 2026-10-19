@@ -1,0 +1,9 @@
+{
+ "platform": "macOS-15.6.1-arm64-arm-64bit-Mach-O",
+ "machine": "arm64",
+ "cpu": "Apple M1 Max",
+ "ram_gb": 64.0,
+ "python": "3.13.7",
+ "torch": "2.14.1",
+ "device": "mps"
+}

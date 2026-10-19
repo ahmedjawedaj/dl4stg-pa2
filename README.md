@@ -13,6 +13,19 @@ AI651 Deep Learning for Space, Time and Graphs, Assignment 2. Code for Question 
 
 Setup: `./setup_env.sh` creates `.venv` and installs `requirements.txt`. Tests: `.venv/bin/python -m tests.test_windows`.
 
+The setup uses official PyPI without changing machine-wide pip configuration and records exact
+versions in `logs/pip_freeze.txt`. Run `.venv/bin/python -m tests.test_resume` to verify recovery.
+Training writes an atomic resume checkpoint and progress JSON after every complete epoch.
+Rerunning the same phase resumes an interrupted run with its optimizer and sampling state intact.
+Final checkpoint filenames are written only after all requested epochs finish.
+
+`python -m scripts.download_data` optionally downloads the official Moving MNIST file over HTTPS
+with four byte-range transfers, reuses completed chunks, and verifies its published size and MD5.
+Experiments still load the verified file through torchvision with `split=None`.
+
 Report: `python report/build.py` builds `report/DL4STG_PA2_report.pdf`. It needs `pandoc` and
 `pip install playwright && playwright install chromium` (not in `requirements.txt`, which covers the
 experiments only). It lists every gap (missing part, answer, table, image, GIF, repository URL, or a prediction answer edited after its commit) before rendering, and `python report/build.py --final` refuses to write a PDF while any gap remains.
+
+To use an already-installed Chromium instead of downloading another browser, set
+`PA2_CHROMIUM_EXECUTABLE` to its executable path when invoking the builder.

@@ -1,0 +1,110 @@
+{
+ "A": {
+  "analytic_reach_px": 8,
+  "patch": 4,
+  "autograd_cell_radius": {
+   "u_tau": 2,
+   "h1_prev": 2,
+   "h2_prev": 1
+  },
+  "autograd_reach_px": 8,
+  "params": 480784,
+  "config": {
+   "patch": 4,
+   "hidden": [
+    64,
+    64
+   ],
+   "kernels": [
+    3,
+    3
+   ],
+   "dilations": [
+    1,
+    1
+   ],
+   "name": "A"
+  }
+ },
+ "D_k5": {
+  "analytic_reach_px": 16,
+  "patch": 4,
+  "autograd_cell_radius": {
+   "u_tau": 4,
+   "h1_prev": 4,
+   "h2_prev": 2
+  },
+  "autograd_reach_px": 16,
+  "params": 709520,
+  "config": {
+   "patch": 4,
+   "hidden": [
+    46,
+    46
+   ],
+   "kernels": [
+    5,
+    5
+   ],
+   "dilations": [
+    1,
+    1
+   ],
+   "name": "D_k5"
+  }
+ },
+ "D_dil": {
+  "analytic_reach_px": 12,
+  "patch": 4,
+  "autograd_cell_radius": {
+   "u_tau": 3,
+   "h1_prev": 3,
+   "h2_prev": 2
+  },
+  "autograd_reach_px": 12,
+  "params": 703888,
+  "config": {
+   "patch": 4,
+   "hidden": [
+    78,
+    78
+   ],
+   "kernels": [
+    3,
+    3
+   ],
+   "dilations": [
+    1,
+    2
+   ],
+   "name": "D_dil"
+  }
+ },
+ "D_p8": {
+  "analytic_reach_px": 16,
+  "patch": 8,
+  "autograd_cell_radius": {
+   "u_tau": 2,
+   "h1_prev": 2,
+   "h2_prev": 1
+  },
+  "autograd_reach_px": 16,
+  "params": 695584,
+  "config": {
+   "patch": 8,
+   "hidden": [
+    70,
+    70
+   ],
+   "kernels": [
+    3,
+    3
+   ],
+   "dilations": [
+    1,
+    1
+   ],
+   "name": "D_p8"
+  }
+ }
+}

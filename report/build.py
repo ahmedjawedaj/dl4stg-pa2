@@ -128,7 +128,8 @@ def render(src):
                    check=True, cwd=REP)
     from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
-        b = p.chromium.launch()
+        executable = os.environ.get("PA2_CHROMIUM_EXECUTABLE")
+        b = p.chromium.launch(**({"executable_path": executable} if executable else {}))
         pg = b.new_page()
         pg.goto("file://" + html)
         pg.wait_for_timeout(500)

@@ -60,6 +60,19 @@ def masked_video_mse(pred, Y, mask):
     return per_video.mean()
 
 
+def save_json_atomic(value, path):
+    temporary = path + ".tmp"
+    with open(temporary, "w") as f:
+        json.dump(value, f, indent=1)
+    os.replace(temporary, path)
+
+
+def save_torch_atomic(value, path):
+    temporary = path + ".tmp"
+    torch.save(value, temporary)
+    os.replace(temporary, path)
+
+
 @torch.no_grad()
 def val_error(model, val_u8, device, k=1, batch=100):
     """Mean E(5)-style error on validation at speed k, t=1 (valid targets only)."""
@@ -112,9 +125,32 @@ def main():
     log = {"tag": tag, "model": args.model, "arch": arch, "config": config_dict(arch),
            "regime": regime, "sym_aug": sym, "seed": args.seed, "params": n_params(model),
            "device": str(device), "machine": platform.platform(), "epochs": [],
-           "torch": torch.__version__}
+           "torch": str(torch.__version__), "training_videos": len(train_u8),
+           "max_batches": args.max_batches}
+    log_dir = "results/train_logs" if args.out == "checkpoints" else args.out
+    ensure_dir(args.out)
+    ensure_dir(log_dir)
+    log_path = os.path.join(log_dir, f"{tag}.json")
+    resume_path = os.path.join(args.out, f"{tag}.resume.pt")
+    first_epoch = 1
+    if os.path.exists(resume_path):
+        saved = torch.load(resume_path, map_location="cpu", weights_only=True)
+        previous = saved["log"]
+        for key in ("model", "config", "regime", "sym_aug", "seed", "torch", "device", "machine",
+                    "training_videos", "max_batches"):
+            if previous[key] != log[key]:
+                raise ValueError(f"Cannot resume {tag}: changed {key}")
+        if saved["total_epochs"] != args.epochs:
+            raise ValueError(f"Cannot resume {tag}: changed requested epoch count")
+        model.load_state_dict(saved["state_dict"])
+        opt.load_state_dict(saved["optimizer"])
+        gen.set_state(saved["generator_state"])
+        torch.set_rng_state(saved["torch_rng_state"])
+        log = previous
+        first_epoch = log["epochs"][-1]["epoch"] + 1
+        print(f"[{tag}] resuming at epoch {first_epoch}, completed epochs retained", flush=True)
     N = len(train_u8)
-    for ep in range(1, args.epochs + 1):
+    for ep in range(first_epoch, args.epochs + 1):
         sync(device)
         t0 = time.perf_counter()
         perm = torch.randperm(N, generator=gen)
@@ -141,11 +177,18 @@ def main():
             opt.step()
             run_loss += loss.item()
             nb += 1
+            if nb % 50 == 0:
+                print(f"[{tag}] ep {ep:2d} batch {nb}/{(N + BATCH - 1) // BATCH} "
+                      f"mean loss {run_loss / nb:.5f}", flush=True)
         sync(device)
         ep_time = time.perf_counter() - t0
         v1 = val_error(model, val_u8, device, k=1)
         rec = {"epoch": ep, "train_loss": run_loss / nb, "val_E5_1x": v1, "epoch_time_s": ep_time}
         log["epochs"].append(rec)
+        save_torch_atomic({"state_dict": model.state_dict(), "optimizer": opt.state_dict(),
+                           "generator_state": gen.get_state(), "torch_rng_state": torch.get_rng_state(),
+                           "total_epochs": args.epochs, "log": log}, resume_path)
+        save_json_atomic(log, log_path)
         print(f"[{tag}] ep {ep:2d} loss {rec['train_loss']:.5f} val1x {v1:.5f} time {ep_time:.1f}s",
               flush=True)
 
@@ -154,13 +197,10 @@ def main():
         log["val_final"] = {f"E2_{k}x": val_error_e2(model, val_u8, device, k) for k in (1, 2, 3)}
         log["val_final"]["E5_1x"] = log["epochs"][-1]["val_E5_1x"]
         print(f"[{tag}] val final {log['val_final']}", flush=True)
-    log_dir = "results/train_logs" if args.out == "checkpoints" else args.out
-    ensure_dir(args.out)
-    ensure_dir(log_dir)
-    torch.save({"state_dict": model.state_dict(), "arch": arch, "config": config_dict(arch)},
-               os.path.join(args.out, f"{tag}.pt"))
-    with open(os.path.join(log_dir, f"{tag}.json"), "w") as f:
-        json.dump(log, f, indent=1)
+    save_torch_atomic({"state_dict": model.state_dict(), "arch": arch, "config": config_dict(arch)},
+                      os.path.join(args.out, f"{tag}.pt"))
+    save_json_atomic(log, log_path)
+    os.remove(resume_path)
 
 
 @torch.no_grad()

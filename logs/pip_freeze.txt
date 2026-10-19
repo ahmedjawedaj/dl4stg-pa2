@@ -1,0 +1,13 @@
+annotated-types==0.7.0
+certifi==2026.6.17
+cffi==2.0.0
+cryptography==49.0.0
+numpy==2.5.2
+pillow==12.3.0
+pycparser==3.0
+pydantic==2.13.4
+pydantic_core==2.46.4
+rpds-py==2026.5.1
+typing-inspection==0.4.2
+typing_extensions==4.15.0
+wheel @ file:///opt/homebrew/Cellar/python%403.13/3.13.2/libexec/wheel-0.45.1-py3-none-any.whl#sha256=b9235939e2096903717cb6bfc132267f8a7e46deb2ec3ef9c5e234ea301795d0
