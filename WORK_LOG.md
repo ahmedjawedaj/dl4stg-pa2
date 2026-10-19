@@ -48,3 +48,11 @@ The working report build command on this Mac is the project Python running `repo
 ## Phase 1 complete and Q2.5 prepared
 
 Both A seeds completed 30 epochs. Mean test E(5) = 0.0219346, versus Blank 0.0425645 and Copy-last 0.0640821. Figure 2 was visually inspected on videos 9007, 9012 and 9000 (overlap). Q2.4 was written from those results. The genuine Q2.5 prediction was written before phase 2, using only phase 1 evidence, and its permitted inputs were hashed in results/q2_5_preexperiment_evidence.json. Commit this answer before launching phase 2; preserve it unchanged regardless of the result.
+
+## Phase 2 started
+
+Q2.5 was committed as `2513a26` before any stress test. Phase 2 launched at 2026-10-19T17:28:23.156129+05:00 with PID 39412. Read logs/run_phase2.log and logs/phase2_gate.txt. No B/C/D training is authorized by the gate until a genuine Q2.11 has been written and committed after phase 2.
+
+## Phase 2 complete and Q2.11 prepared
+
+Phase 2 finished normally after the Q2.5 gate. Mean A C_M=0.0017784 and C_R=0.0028035, transformed E_M=0.0225576 and E_R=0.0236072. Mean E(2) across 1x/2x/3x is 0.0185294/0.0454917/0.0533584. Figures 3-5 were visually inspected. Q2.11 contains three genuine prediction sentences using only phase 2 evidence, hashed in results/q2_11_preexperiment_evidence.json. Commit it before phase 3 and preserve it unchanged. Figure 3 GIF metadata exposed a zero-duration compatibility bug; fix playback timing without changing the measurements.

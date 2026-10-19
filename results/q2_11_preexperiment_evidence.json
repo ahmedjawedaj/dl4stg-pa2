@@ -1,0 +1,13 @@
+{
+  "written_at": "2026-10-19T17:29:16.355045+05:00",
+  "phase2_complete": true,
+  "phase3_had_not_started": true,
+  "evidence_sha256": {
+    "results/table3.md": "606e6f3bdc36871815d9d850ae6a1d6aa4a93e4c362c65f509dd42944c3b217d",
+    "results/table4.md": "a348b10369133a4e0da49f890b5e6470b5b077703c4c2cd762b35f1de8e98e0d",
+    "results/fig3_videos.json": "ecfd833506f86373caf6582b9603924d6453d9143a7e9c5b08677c3f34465067",
+    "results/fig5_video.json": "8dc3f4f8351a4579e56a9dc2ad2b99385048610f83a293750ecc383044f00224",
+    "figures/fig3_A_M_v658.png": "6ba454f9ed37e8f23e79d06c01a684d97db18cb3d9e78a68a456c35f87f47e0f",
+    "figures/fig5_A_speeds.png": "a929dc43e233d24c2afb1bf0eefd8b4cca0a947ba762377d828679103e167c5a"
+  }
+}

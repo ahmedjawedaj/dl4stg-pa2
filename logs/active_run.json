@@ -1,8 +1,7 @@
 {
-  "phase": "phase1",
-  "pid": 16049,
-  "started_utc": "2026-10-19T11:55:50.194283+00:00",
-  "log": "logs/run_phase1.log",
-  "command": "caffeinate -i /bin/bash ./run_phase1.sh",
-  "status": "running"
+  "phase": 2,
+  "pid": 39412,
+  "started_at": "2026-10-19T17:28:23.156129+05:00",
+  "status": "running",
+  "log": "logs/run_phase2.log"
 }
