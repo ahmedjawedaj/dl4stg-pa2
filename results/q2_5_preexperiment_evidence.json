@@ -1,0 +1,17 @@
+{
+  "written_at": "2026-10-19T17:26:30.758940+05:00",
+  "permitted_evidence": [
+    "results/table2.md",
+    "results/fig1_flow_stats.json",
+    "results/reach.json",
+    "figures/fig2_baseline_examples.png"
+  ],
+  "phase2_had_not_started": true,
+  "normal_eval_only": true,
+  "sha256": {
+    "results/table2.md": "c25f930a3fef667304bfead35046fb2bfe35ce921258afeb0f9274d3c88a31fc",
+    "results/fig1_flow_stats.json": "ae056e6ac8ba1fe1b5fe4f0bf4412ed82ede3a2379957440b000fc0d34657adc",
+    "results/reach.json": "b57781b18a66f816fa902af33d835ba19cf2aedc54aea1034097ffbbbe2c2a4a",
+    "figures/fig2_baseline_examples.png": "83e0548388f93f6cb1797357cc0a5d1d4fa92ee98fccda693c34bfe3047bb120"
+  }
+}

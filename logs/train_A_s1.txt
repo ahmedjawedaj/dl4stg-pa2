@@ -1,0 +1,181 @@
+[A_s1] arch=A regime=normal sym=False params=480784 device=mps
+[A_s1] ep  1 batch 50/250 mean loss 0.07792
+[A_s1] ep  1 batch 100/250 mean loss 0.05920
+[A_s1] ep  1 batch 150/250 mean loss 0.05285
+[A_s1] ep  1 batch 200/250 mean loss 0.04966
+[A_s1] ep  1 batch 250/250 mean loss 0.04778
+[A_s1] ep  1 loss 0.04778 val1x 0.03937 time 26.4s
+[A_s1] ep  2 batch 50/250 mean loss 0.04012
+[A_s1] ep  2 batch 100/250 mean loss 0.04007
+[A_s1] ep  2 batch 150/250 mean loss 0.04010
+[A_s1] ep  2 batch 200/250 mean loss 0.04009
+[A_s1] ep  2 batch 250/250 mean loss 0.03995
+[A_s1] ep  2 loss 0.03995 val1x 0.03912 time 27.0s
+[A_s1] ep  3 batch 50/250 mean loss 0.03986
+[A_s1] ep  3 batch 100/250 mean loss 0.03983
+[A_s1] ep  3 batch 150/250 mean loss 0.03984
+[A_s1] ep  3 batch 200/250 mean loss 0.03973
+[A_s1] ep  3 batch 250/250 mean loss 0.03964
+[A_s1] ep  3 loss 0.03964 val1x 0.03873 time 26.7s
+[A_s1] ep  4 batch 50/250 mean loss 0.03931
+[A_s1] ep  4 batch 100/250 mean loss 0.03923
+[A_s1] ep  4 batch 150/250 mean loss 0.03926
+[A_s1] ep  4 batch 200/250 mean loss 0.03924
+[A_s1] ep  4 batch 250/250 mean loss 0.03914
+[A_s1] ep  4 loss 0.03914 val1x 0.03790 time 26.4s
+[A_s1] ep  5 batch 50/250 mean loss 0.03827
+[A_s1] ep  5 batch 100/250 mean loss 0.03806
+[A_s1] ep  5 batch 150/250 mean loss 0.03775
+[A_s1] ep  5 batch 200/250 mean loss 0.03754
+[A_s1] ep  5 batch 250/250 mean loss 0.03736
+[A_s1] ep  5 loss 0.03736 val1x 0.03597 time 26.3s
+[A_s1] ep  6 batch 50/250 mean loss 0.03591
+[A_s1] ep  6 batch 100/250 mean loss 0.03553
+[A_s1] ep  6 batch 150/250 mean loss 0.03530
+[A_s1] ep  6 batch 200/250 mean loss 0.03522
+[A_s1] ep  6 batch 250/250 mean loss 0.03508
+[A_s1] ep  6 loss 0.03508 val1x 0.03362 time 26.4s
+[A_s1] ep  7 batch 50/250 mean loss 0.03407
+[A_s1] ep  7 batch 100/250 mean loss 0.03378
+[A_s1] ep  7 batch 150/250 mean loss 0.03356
+[A_s1] ep  7 batch 200/250 mean loss 0.03347
+[A_s1] ep  7 batch 250/250 mean loss 0.03332
+[A_s1] ep  7 loss 0.03332 val1x 0.03199 time 27.3s
+[A_s1] ep  8 batch 50/250 mean loss 0.03244
+[A_s1] ep  8 batch 100/250 mean loss 0.03210
+[A_s1] ep  8 batch 150/250 mean loss 0.03205
+[A_s1] ep  8 batch 200/250 mean loss 0.03198
+[A_s1] ep  8 batch 250/250 mean loss 0.03186
+[A_s1] ep  8 loss 0.03186 val1x 0.03087 time 29.4s
+[A_s1] ep  9 batch 50/250 mean loss 0.03150
+[A_s1] ep  9 batch 100/250 mean loss 0.03122
+[A_s1] ep  9 batch 150/250 mean loss 0.03105
+[A_s1] ep  9 batch 200/250 mean loss 0.03092
+[A_s1] ep  9 batch 250/250 mean loss 0.03082
+[A_s1] ep  9 loss 0.03082 val1x 0.03003 time 28.1s
+[A_s1] ep 10 batch 50/250 mean loss 0.03018
+[A_s1] ep 10 batch 100/250 mean loss 0.03011
+[A_s1] ep 10 batch 150/250 mean loss 0.03014
+[A_s1] ep 10 batch 200/250 mean loss 0.03014
+[A_s1] ep 10 batch 250/250 mean loss 0.03003
+[A_s1] ep 10 loss 0.03003 val1x 0.02925 time 26.7s
+[A_s1] ep 11 batch 50/250 mean loss 0.02960
+[A_s1] ep 11 batch 100/250 mean loss 0.02963
+[A_s1] ep 11 batch 150/250 mean loss 0.02955
+[A_s1] ep 11 batch 200/250 mean loss 0.02944
+[A_s1] ep 11 batch 250/250 mean loss 0.02932
+[A_s1] ep 11 loss 0.02932 val1x 0.02865 time 28.3s
+[A_s1] ep 12 batch 50/250 mean loss 0.02867
+[A_s1] ep 12 batch 100/250 mean loss 0.02878
+[A_s1] ep 12 batch 150/250 mean loss 0.02869
+[A_s1] ep 12 batch 200/250 mean loss 0.02860
+[A_s1] ep 12 batch 250/250 mean loss 0.02855
+[A_s1] ep 12 loss 0.02855 val1x 0.02794 time 28.2s
+[A_s1] ep 13 batch 50/250 mean loss 0.02806
+[A_s1] ep 13 batch 100/250 mean loss 0.02811
+[A_s1] ep 13 batch 150/250 mean loss 0.02803
+[A_s1] ep 13 batch 200/250 mean loss 0.02801
+[A_s1] ep 13 batch 250/250 mean loss 0.02795
+[A_s1] ep 13 loss 0.02795 val1x 0.02733 time 28.5s
+[A_s1] ep 14 batch 50/250 mean loss 0.02740
+[A_s1] ep 14 batch 100/250 mean loss 0.02744
+[A_s1] ep 14 batch 150/250 mean loss 0.02741
+[A_s1] ep 14 batch 200/250 mean loss 0.02732
+[A_s1] ep 14 batch 250/250 mean loss 0.02725
+[A_s1] ep 14 loss 0.02725 val1x 0.02723 time 28.3s
+[A_s1] ep 15 batch 50/250 mean loss 0.02710
+[A_s1] ep 15 batch 100/250 mean loss 0.02703
+[A_s1] ep 15 batch 150/250 mean loss 0.02705
+[A_s1] ep 15 batch 200/250 mean loss 0.02702
+[A_s1] ep 15 batch 250/250 mean loss 0.02690
+[A_s1] ep 15 loss 0.02690 val1x 0.02664 time 26.9s
+[A_s1] ep 16 batch 50/250 mean loss 0.02642
+[A_s1] ep 16 batch 100/250 mean loss 0.02651
+[A_s1] ep 16 batch 150/250 mean loss 0.02645
+[A_s1] ep 16 batch 200/250 mean loss 0.02639
+[A_s1] ep 16 batch 250/250 mean loss 0.02638
+[A_s1] ep 16 loss 0.02638 val1x 0.02619 time 26.9s
+[A_s1] ep 17 batch 50/250 mean loss 0.02577
+[A_s1] ep 17 batch 100/250 mean loss 0.02582
+[A_s1] ep 17 batch 150/250 mean loss 0.02593
+[A_s1] ep 17 batch 200/250 mean loss 0.02590
+[A_s1] ep 17 batch 250/250 mean loss 0.02585
+[A_s1] ep 17 loss 0.02585 val1x 0.02546 time 27.4s
+[A_s1] ep 18 batch 50/250 mean loss 0.02557
+[A_s1] ep 18 batch 100/250 mean loss 0.02551
+[A_s1] ep 18 batch 150/250 mean loss 0.02544
+[A_s1] ep 18 batch 200/250 mean loss 0.02538
+[A_s1] ep 18 batch 250/250 mean loss 0.02533
+[A_s1] ep 18 loss 0.02533 val1x 0.02492 time 27.7s
+[A_s1] ep 19 batch 50/250 mean loss 0.02511
+[A_s1] ep 19 batch 100/250 mean loss 0.02488
+[A_s1] ep 19 batch 150/250 mean loss 0.02493
+[A_s1] ep 19 batch 200/250 mean loss 0.02490
+[A_s1] ep 19 batch 250/250 mean loss 0.02487
+[A_s1] ep 19 loss 0.02487 val1x 0.02478 time 27.2s
+[A_s1] ep 20 batch 50/250 mean loss 0.02463
+[A_s1] ep 20 batch 100/250 mean loss 0.02461
+[A_s1] ep 20 batch 150/250 mean loss 0.02457
+[A_s1] ep 20 batch 200/250 mean loss 0.02452
+[A_s1] ep 20 batch 250/250 mean loss 0.02448
+[A_s1] ep 20 loss 0.02448 val1x 0.02417 time 27.6s
+[A_s1] ep 21 batch 50/250 mean loss 0.02418
+[A_s1] ep 21 batch 100/250 mean loss 0.02426
+[A_s1] ep 21 batch 150/250 mean loss 0.02418
+[A_s1] ep 21 batch 200/250 mean loss 0.02409
+[A_s1] ep 21 batch 250/250 mean loss 0.02405
+[A_s1] ep 21 loss 0.02405 val1x 0.02404 time 27.4s
+[A_s1] ep 22 batch 50/250 mean loss 0.02392
+[A_s1] ep 22 batch 100/250 mean loss 0.02388
+[A_s1] ep 22 batch 150/250 mean loss 0.02380
+[A_s1] ep 22 batch 200/250 mean loss 0.02373
+[A_s1] ep 22 batch 250/250 mean loss 0.02371
+[A_s1] ep 22 loss 0.02371 val1x 0.02350 time 28.3s
+[A_s1] ep 23 batch 50/250 mean loss 0.02352
+[A_s1] ep 23 batch 100/250 mean loss 0.02352
+[A_s1] ep 23 batch 150/250 mean loss 0.02344
+[A_s1] ep 23 batch 200/250 mean loss 0.02338
+[A_s1] ep 23 batch 250/250 mean loss 0.02338
+[A_s1] ep 23 loss 0.02338 val1x 0.02323 time 31.6s
+[A_s1] ep 24 batch 50/250 mean loss 0.02308
+[A_s1] ep 24 batch 100/250 mean loss 0.02309
+[A_s1] ep 24 batch 150/250 mean loss 0.02311
+[A_s1] ep 24 batch 200/250 mean loss 0.02311
+[A_s1] ep 24 batch 250/250 mean loss 0.02311
+[A_s1] ep 24 loss 0.02311 val1x 0.02280 time 30.4s
+[A_s1] ep 25 batch 50/250 mean loss 0.02278
+[A_s1] ep 25 batch 100/250 mean loss 0.02276
+[A_s1] ep 25 batch 150/250 mean loss 0.02269
+[A_s1] ep 25 batch 200/250 mean loss 0.02272
+[A_s1] ep 25 batch 250/250 mean loss 0.02270
+[A_s1] ep 25 loss 0.02270 val1x 0.02263 time 29.0s
+[A_s1] ep 26 batch 50/250 mean loss 0.02260
+[A_s1] ep 26 batch 100/250 mean loss 0.02255
+[A_s1] ep 26 batch 150/250 mean loss 0.02262
+[A_s1] ep 26 batch 200/250 mean loss 0.02248
+[A_s1] ep 26 batch 250/250 mean loss 0.02252
+[A_s1] ep 26 loss 0.02252 val1x 0.02235 time 29.2s
+[A_s1] ep 27 batch 50/250 mean loss 0.02233
+[A_s1] ep 27 batch 100/250 mean loss 0.02238
+[A_s1] ep 27 batch 150/250 mean loss 0.02236
+[A_s1] ep 27 batch 200/250 mean loss 0.02231
+[A_s1] ep 27 batch 250/250 mean loss 0.02224
+[A_s1] ep 27 loss 0.02224 val1x 0.02211 time 28.0s
+[A_s1] ep 28 batch 50/250 mean loss 0.02229
+[A_s1] ep 28 batch 100/250 mean loss 0.02212
+[A_s1] ep 28 batch 150/250 mean loss 0.02215
+[A_s1] ep 28 batch 200/250 mean loss 0.02211
+[A_s1] ep 28 batch 250/250 mean loss 0.02207
+[A_s1] ep 28 loss 0.02207 val1x 0.02196 time 28.7s
+[A_s1] ep 29 batch 50/250 mean loss 0.02185
+[A_s1] ep 29 batch 100/250 mean loss 0.02186
+[A_s1] ep 29 batch 150/250 mean loss 0.02188
+[A_s1] ep 29 batch 200/250 mean loss 0.02183
+[A_s1] ep 29 batch 250/250 mean loss 0.02178
+[A_s1] ep 29 loss 0.02178 val1x 0.02168 time 28.3s
+[A_s1] ep 30 batch 50/250 mean loss 0.02197
+[A_s1] ep 30 batch 100/250 mean loss 0.02169
+[A_s1] ep 30 batch 150/250 mean loss 0.02167
+[A_s1] ep 30 batch 200/250 mean loss 0.02158
+[A_s1] ep 30 batch 250/250 mean loss 0.02150
+[A_s1] ep 30 loss 0.02150 val1x 0.02138 time 28.8s

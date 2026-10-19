@@ -44,3 +44,7 @@ The working report build command on this Mac is the project Python running `repo
 ## Latest automatic check
 
 2026-10-19 17:15:07 PKT: phase 1 is healthy. A seed 0 finished all 30 epochs and its final checkpoint loaded successfully with 480,784 finite parameters. Its final validation E(5) is 0.0221035 and mean training epoch time is 26.55 seconds. The per-epoch resume file was removed after finalization. A seed 1 has completed 9/30 epochs, latest validation E(5) 0.0300264. Expect roughly another 9-12 minutes for seed 1 and phase 1 evaluation, subject to actual runtime. No test-based analysis, stress experiments or prediction commits have happened yet. Keep waiting for both final checkpoints and PHASE 1 DONE before Q2.5.
+
+## Phase 1 complete and Q2.5 prepared
+
+Both A seeds completed 30 epochs. Mean test E(5) = 0.0219346, versus Blank 0.0425645 and Copy-last 0.0640821. Figure 2 was visually inspected on videos 9007, 9012 and 9000 (overlap). Q2.4 was written from those results. The genuine Q2.5 prediction was written before phase 2, using only phase 1 evidence, and its permitted inputs were hashed in results/q2_5_preexperiment_evidence.json. Commit this answer before launching phase 2; preserve it unchanged regardless of the result.
