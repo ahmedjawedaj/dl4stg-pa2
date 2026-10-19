@@ -30,16 +30,17 @@ Ahmed asked Codex: "please take it over and do whats needed" after reviewing the
 
 ## Next actions
 
-1. Finish environment installation; run `tests.test_windows` and `tests.test_resume`, and confirm MPS forward/backward execution.
-2. Verify the dataset checksum and loader shape. Run the synthetic Table 1 checks, Figure 1 and reach check.
-3. Commit the setup/reliability changes and start phase 1 with caffeinate, durable logs and a recorded process ID.
-4. Inspect the first complete epoch and report a measured timing estimate, with uncertainty about the different D architectures.
-5. After phase 1, inspect Table 2/Figure 2, write Q2.4, and write/commit a genuine Q2.5 before phase 2.
-6. After phase 2, inspect actual failures and complete Q2.6-Q2.10; write/commit Q2.11 before phase 3.
-7. Run phase 3, make the optional D+B decision from evidence, complete all remaining writing, render and verify the PDF.
-8. Obtain any unavailable original Claude prompts for the final AI disclosure. Keep all assistance and checks accurately attributed.
-9. Create/publish the GitHub repository only when the local work is ready, then insert its actual URL and perform final submission checks.
+1. Continue the existing phase 1 process. Do not launch another training job. Environment, dataset, synthetic checks, MPS trainer check, Table 1, Figure 1 and reach verification are complete.
+2. After both A seeds and phase 1 evaluation finish, inspect Table 2/Figure 2, write Q2.4, then write/commit a genuine Q2.5 before phase 2.
+3. After phase 2, inspect actual failures and complete Q2.6-Q2.10. Write/commit Q2.11 before B-D training.
+4. Run phase 3, make the optional D+B decision from evidence, complete the remaining writing, and render/verify the PDF.
+5. The original Claude prompts were requested from Ahmed through an asynchronous question during the first scheduled check. That question is pending. Do not ask it again unless necessary, and do not fabricate the missing transcript. Other work can continue.
+6. Create/publish the GitHub repository only when the local work is ready, then insert its actual URL and perform final submission checks.
 
 Ahmed explicitly answered "Yes, continue automatically". The thread follow-up `finish-assignment-2` is ACTIVE every 10 minutes and should notify only on meaningful milestones, failures, completion or required user action. It must be disabled when the authorized assignment work is complete. Keep the Mac on and this desktop app running for local continuation.
 
 The working report build command on this Mac is the project Python running `report/build.py` with `PA2_CHROMIUM_EXECUTABLE` pointing to `/Users/ahmedjawed/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing`.
+
+## Latest automatic check
+
+2026-10-19 17:05:51 PKT: existing phase 1 process is healthy. A seed 0 has completed 20 of 30 epochs. Latest validation E(5) = 0.025159. Mean training epoch time so far = 25.7 seconds. Phase 1 completion and both prediction commits remain pending. No stress tests or B-D training have run. AI disclosure attribution was corrected to distinguish Claude drafts from Codex execution.

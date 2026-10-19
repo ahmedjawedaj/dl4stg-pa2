@@ -1,14 +1,14 @@
 # AI-use disclosure
 
-**Tools.** Claude (Anthropic), used as an agent with access to a cloud workspace and to my assignment folder. A second AI assistant independently reviewed the implementation against the handout. Its reviews are in `reviews/` in the repository. Training and evaluation ran on my own machine ({{HARDWARE}}).
+**Tools and roles.** Claude (Anthropic) prepared the initial implementation and report drafts. Codex (OpenAI) independently reviewed the implementation against the handout and then took over local execution at my request. Its reviews are in `reviews/` and the execution record is in `WORK_LOG.md`. Reported measurements are produced locally on {{HARDWARE}}.
 
-**What Claude produced.** It read the handout and the supplied folder, wrote the Q2 code (`pa2/`, `scripts/`, the three phase scripts), and tested it on synthetic inputs and untrained models (Table 1 checks, parameter count, window and symmetry tests, smoke runs). It also produced the tables and figures from my training runs, drafted the Q1 proposal and the Q2 answers, and wrote the report build script.
+**Outputs and responsibility.** Claude supplied the initial Q2 code, experiment scripts, Q1 proposal, partial Q2 prose and report builder, and revised them after the independent reviews. Codex verified the synthetic checks in the actual environment, corrected local setup, added tested recovery for interrupted runs, inspected the PDF layout, and runs the experiments and analysis after takeover. Claude stopped editing the repository before the training experiments. Numerical claims must come from the recorded experiment outputs, rather than from either assistant's expectations. This disclosure does not claim that I personally performed automated checks or inspected every result.
 
-**Prompts I gave (verbatim, in order).**
+**User prompts and corresponding outputs.**
 
 {{AI_PROMPTS}}
 
-**My edits and checks.**
+**Edits to generated work and verification.**
 
 {{AI_EDITS}}
 
