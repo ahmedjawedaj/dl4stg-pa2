@@ -1,1 +1,4 @@
-{"REPO_URL": "https://github.com/REPLACE/dl4stg-pa2"}
+{
+  "REPO_URL": "https://github.com/REPLACE/dl4stg-pa2",
+  "AI_PROMPTS": "**Claude prompts. Temporary placeholder.** The original prompt text has not been supplied. Replace this section with the actual prompts before submission.\n\n**[missing: original Claude prompts for AI disclosure]**\n\n**Codex takeover request (verbatim):**\n\n> please take it over and do whats needed\n\n**Authorization for automatic continuation (verbatim):**\n\n> Yes, continue automatically\n\nCodex produced the independent reviews, setup and recovery fixes, local execution, result checks and report revisions recorded in WORK_LOG.md. This placeholder is not a record of the original Claude prompts."
+}

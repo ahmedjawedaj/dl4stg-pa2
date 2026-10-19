@@ -34,7 +34,7 @@ Ahmed asked Codex: "please take it over and do whats needed" after reviewing the
 2. After both A seeds and phase 1 evaluation finish, inspect Table 2/Figure 2, write Q2.4, then write/commit a genuine Q2.5 before phase 2.
 3. After phase 2, inspect actual failures and complete Q2.6-Q2.10. Write/commit Q2.11 before B-D training.
 4. Run phase 3, make the optional D+B decision from evidence, complete the remaining writing, and render/verify the PDF.
-5. The original Claude prompts were requested from Ahmed through an asynchronous question during the first scheduled check. That question is pending. Do not ask it again unless necessary, and do not fabricate the missing transcript. Other work can continue.
+5. Ahmed answered that a dummy may be added for now. A clearly labelled temporary placeholder is in AI_PROMPTS, with an explicit missing marker so final submission readiness cannot mistake it for the actual Claude transcript. The known Codex takeover request and continuation authorization are quoted accurately. Do not repeatedly ask for the transcript during training; replace the temporary section before submission.
 6. Create/publish the GitHub repository only when the local work is ready, then insert its actual URL and perform final submission checks.
 
 Ahmed explicitly answered "Yes, continue automatically". The thread follow-up `finish-assignment-2` is ACTIVE every 10 minutes and should notify only on meaningful milestones, failures, completion or required user action. It must be disabled when the authorized assignment work is complete. Keep the Mac on and this desktop app running for local continuation.
