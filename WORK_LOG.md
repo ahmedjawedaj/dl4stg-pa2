@@ -106,3 +106,11 @@ Read the complete Q1 brief and matched its six required headings to the proposal
 2026-10-19T21:28:33.584281+05:00: D_k5 seed 1 has 24 complete epochs and is in epoch 25. Validation E(5) has improved to 0.02973; preserve this measured outcome alongside the seed-0 plateau. Original phase 3 process remains healthy and will advance automatically. No intervention or new GPU job.
 
 2026-10-19T21:38:38.916319+05:00: D_k5 completed both 30-epoch seed runs. Seed-1 final checkpoint loads on CPU with finite tensors and the resume file is gone. Raw mean training epoch 72.58 s, with the recorded sleep/wake interruption. Seed-1 validation E(2) is {'E2_1x': 0.02595994520187378, 'E2_2x': 0.02905267024040222, 'E2_3x': 0.031652369976043704, 'E5_1x': 0.02925631022453308}. Existing phase 3 advanced to D_dil seed 0, two epochs complete at about 63.24 s per training epoch. Keep both remaining designs and both seeds; no candidate selected yet.
+
+2026-10-19T21:48:30.515004+05:00: D_dil seed 0 has 10 completed epochs and is in epoch 11, mean training epoch 69.45 s. Existing process is healthy with finite logged losses. Continue the queued fixed-protocol runs. No intervention or duplicate job.
+
+2026-10-19T21:58:29.997982+05:00: D_dil seed 0 has 17 complete epochs, mean training epoch 75.05 s; latest validation E(5) 0.03819. Existing process is healthy and advancing. Continue fixed protocol with no duplicate job or test-based selection.
+
+2026-10-19T22:08:44.433576+05:00: D_dil seed 0 has 24 complete epochs and is finishing epoch 25, mean training epoch 74.85 s. Existing process is healthy. A read-only publication preflight confirmed GitHub CLI is installed and authenticated as ahmedjawedaj with repository access. No repository was created, remote added or content uploaded; publication still waits until local work is ready.
+
+2026-10-19T22:18:38.237518+05:00: D_dil seed 0 completed all 30 full-data epochs, final checkpoint verified on CPU with finite tensors and resume removed. Mean training epoch 73.12 s. Final validation: {'E2_1x': 0.03794672584533691, 'E2_2x': 0.03791957712173462, 'E2_3x': 0.03791330099105835, 'E5_1x': 0.037922581434249876}. Existing phase 3 advanced to D_dil seed 1, three epochs complete at about 59.68 s per training epoch. Both D_p8 runs remain queued; no model selection or extra GPU job.
