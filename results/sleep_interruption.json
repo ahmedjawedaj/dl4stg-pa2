@@ -1,0 +1,12 @@
+{
+  "observed_at": "2026-10-19T21:16:05.852373+05:00",
+  "source": "pmset -g log",
+  "last_full_wake": "2026-10-19 21:14:51 +0500",
+  "training_process_survived": true,
+  "phase3_parent_pid": 40259,
+  "training_pid": 10075,
+  "run": "D_D_k5_s1",
+  "completed_epochs_at_first_post_wake_check": 10,
+  "raw_epoch_timings_preserved": true,
+  "note": "Sleep and dark-wake intervals occurred during this candidate run. Do not claim uninterrupted timing or subtract unmeasured overhead."
+}
