@@ -24,7 +24,7 @@
 
 {{table3}}
 
-![](../figures/fig3_A.png)
+{{FIG3_PANELS}}
 
 <p class="caption"><b>Figure 3.</b> The two test videos with the largest per-video C<sub>M</sub> and the two with the largest C<sub>R</sub> (model A, seed 0). Rows: (1) X | f(X), (2) T(X) | T(Y), (3) T(X) | f(T(X)), (4) T(X) | T(f(X)). GIFs stepping through the five horizons: {{FIG3_GIFS}}.</p>
 

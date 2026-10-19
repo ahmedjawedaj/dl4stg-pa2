@@ -52,7 +52,7 @@ This makes the three tests a controlled experiment. Mirror and rotation hold the
 
 {{table2}}
 
-![](../figures/fig2_baseline_examples.png)
+{{FIG2_PANELS}}
 
 <p class="caption"><b>Figure 2.</b> Model A (seed 0) on three test videos at 1×, $t = 1$: input frames 1-5, predictions for frames 6-10, and ground truth frames 6-10. {{FIG2_CAPTION}}</p>
 

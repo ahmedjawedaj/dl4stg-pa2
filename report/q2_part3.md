@@ -14,9 +14,13 @@
 
 {{d_selection}}
 
+<div class="landscape-table">
+
 **Table 5.** Models A to D on the test split. Training time is the mean wall-clock time per epoch over the 30 epochs. Inference time is the time to predict the 1,000 original test videos (1×, $t = 1$) at batch 32 under `eval()` and `no_grad()`, timed after the batches are on the device, as the median of three passes after one warm-up pass.
 
 {{table5}}
+
+</div>
 
 ### Q2.12
 
@@ -50,11 +54,15 @@ substituting $g' = gT$ (so $g^{-1} = T g'^{-1}$), which runs over all of $G$ as 
 
 {{FINAL_CHOICE}}
 
+<div class="landscape-table">
+
 **Table 6.** Symmetrised models, same columns as Table 5. Training time is that of the underlying learned model. Inference time includes all eight transformations, forward passes, inverse transformations and the averaging.
 
 {{table6}}
 
-![](../figures/fig6a_final.png)
+</div>
+
+{{FIG6_PANELS}}
 
 <p class="caption"><b>Figure 6(a).</b> Figure 3 repeated with the final model on exactly the same videos. GIFs: {{FIG6_GIFS}}.</p>
 

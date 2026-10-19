@@ -65,7 +65,7 @@ def four_row_gif(path, X, fX, TX, TY, fTX, TfX, tname, title, scale=1):
         fig = frame_grid(rows, labels, cols, title, cell=0.9, sep_after=5, label_width=1.7)
         frames.append(fig_to_array(fig))
         plt.close(fig)
-    imageio.mimsave(path, frames, duration=0.9, loop=0)
+    imageio.mimsave(path, frames, duration=900, loop=0)
 
 
 def fig_to_array(fig, dpi=110):

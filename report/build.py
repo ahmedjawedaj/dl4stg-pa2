@@ -59,6 +59,8 @@ def placeholders():
                           f"device {hw['device']}")
     f2 = ph.get("json:fig2_videos")
     if f2:
+        ph["FIG2_PANELS"] = "\n\n".join(
+            f"![](../figures/fig2_v{i}.png)" for i in f2["fig2_test_positions"])
         ph["FIG2_CAPTION"] = ("Videos " + ", ".join(map(str, f2["fig2_dataset_indices"])) +
                               f" (dataset index). Video {9000 + f2['overlap'][0]} has overlapping digits.")
     for gate, q, k1, k2 in (("phase2_gate", "Q2_5", "Q2_5_COMMIT", "PHASE2_START"),
@@ -77,12 +79,16 @@ def placeholders():
     f3 = ph.get("json:fig3_videos")
     if f3:
         ph["FIG3_GIFS"] = ", ".join(f"`{g}`" for g in f3["gifs"])
+        ph["FIG3_PANELS"] = "\n\n".join(
+            f"![](../figures/fig3_A_{p['T']}_v{p['test_pos']}.png)" for p in f3["picks"])
     f5 = ph.get("json:fig5_video")
     if f5:
         ph["FIG5_CAPTION"] = f"Test video {f5['dataset_idx']} (dataset index)."
     f6 = ph.get("json:fig6")
     if f6:
         ph["FIG6_GIFS"] = ", ".join(f"`{g}`" for g in f6["fig6a_gifs"])
+        ph["FIG6_PANELS"] = "\n\n".join(
+            f"![](../figures/fig6a_final_{p['T']}_v{p['test_pos']}.png)" for p in f6["fig6a_stats"])
     ph.update(json.load(open(os.path.join(REP, "manual.json"))) if os.path.exists(os.path.join(REP, "manual.json")) else {})
     return ph
 
@@ -134,6 +140,7 @@ def render(src):
         pg.goto("file://" + html)
         pg.wait_for_timeout(500)
         pg.pdf(path=os.path.join(REP, "DL4STG_PA2_report.pdf"), format="A4", print_background=True,
+               prefer_css_page_size=True,
                margin={"top": "16mm", "bottom": "16mm", "left": "15mm", "right": "15mm"},
                display_header_footer=True, header_template="<span></span>",
                footer_template='<div style="font-size:8px;width:100%;text-align:center;color:#777">'

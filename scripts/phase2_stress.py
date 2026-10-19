@@ -3,6 +3,7 @@ Tables 3 and 4, Figures 3, 4 and 5 (+ Figure 3 GIFs)."""
 import json
 
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FixedLocator, FuncFormatter, NullFormatter
 import numpy as np
 
 from pa2.data import TEST_IDX, default_device, ensure_dir, load_moving_mnist, split
@@ -63,6 +64,10 @@ for a, T, col in [(ax[0], "M", "#4C72B0"), (ax[1], "R", "#C44E52")]:
     bins = np.logspace(np.log10(c.min() * 0.9), np.log10(c.max() * 1.1), 50)
     a.hist(c, bins=bins, color=col, alpha=0.85, edgecolor="white")
     a.set_xscale("log")
+    ticks = [0.0005, 0.001, 0.002, 0.005] if T == "M" else [0.001, 0.002, 0.004, 0.006]
+    a.xaxis.set_major_locator(FixedLocator(ticks))
+    a.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{x:g}"))
+    a.xaxis.set_minor_formatter(NullFormatter())
     a.axvline(c.mean(), color="k", ls="--", lw=1, label=f"mean = {fmt(float(c.mean()))}")
     a.axvline(np.median(c), color="gray", ls=":", lw=1.2, label=f"median = {fmt(float(np.median(c)))}")
     for T2, i, v in picks:

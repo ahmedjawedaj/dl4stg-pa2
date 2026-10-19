@@ -56,3 +56,13 @@ Q2.5 was committed as `2513a26` before any stress test. Phase 2 launched at 2026
 ## Phase 2 complete and Q2.11 prepared
 
 Phase 2 finished normally after the Q2.5 gate. Mean A C_M=0.0017784 and C_R=0.0028035, transformed E_M=0.0225576 and E_R=0.0236072. Mean E(2) across 1x/2x/3x is 0.0185294/0.0454917/0.0533584. Figures 3-5 were visually inspected. Q2.11 contains three genuine prediction sentences using only phase 2 evidence, hashed in results/q2_11_preexperiment_evidence.json. Commit it before phase 3 and preserve it unchanged. Figure 3 GIF metadata exposed a zero-duration compatibility bug; fix playback timing without changing the measurements.
+
+## Phase 3 started
+
+Q2.11 was committed as `fefd535` before any B/C/D training. Phase 3 launched at 2026-10-19T17:29:25.744548+05:00 with PID 40259. It will train B and C on both seeds and all three D candidates on both seeds, 30 epochs each, then select D by validation data and evaluate the final wrappers. Read logs/run_phase3.log and logs/active_run.json before any launch. No optional D+B run is selected yet.
+
+## Phase 2 report and presentation check
+
+Q2.6-Q2.10 are filled from saved metrics and visually inspected cases. Q2.7 selects mirror video 9658 for the final Figure 6 comparison. Fixed a real GIF compatibility error: ImageIO duration is milliseconds in this environment, so 0.9 produced zero-delay frames. All four baseline GIFs now have five unchanged decoded frames with 900 ms delay, and the generator uses 900 for final GIFs. Figure 4 tick labels are now sparse and readable. Report panels now paginate individually, with a global image-width constraint to prevent print clipping and unwanted global print scaling. Tables 5/6 have landscape pages reserved. Rebuilt the draft and visually inspected pages containing Q1 diagrams and phase 2 figures/tables; remaining draft gaps are expected phase 3 outputs, disclosure, and repository URL.
+
+At 2026-10-19T17:34:10.141695+05:00, B seed 0 has 11/30 epochs, mean training epoch 22.48 s. The ten B/C/D runs provisionally need roughly 2-3 hours including validation/evaluation, subject to actual D timings, followed by report completion. Continue the existing PID in logs/active_run.json. No GPU evaluation was run alongside training.
