@@ -18,7 +18,7 @@
 
 <div class="landscape-table">
 
-**Table 5.** Models A to D on the test split. Training time is the mean wall-clock time per epoch over the 30 epochs. Inference time is the time to predict the 1,000 original test videos (1×, $t = 1$) at batch 32 under `eval()` and `no_grad()`, timed after the batches are on the device, as the median of three passes after one warm-up pass.
+**Table 5.** Models A to D on the test split. Training time is the mean wall-clock time of the 30 training passes, including window sampling and gradient updates. Validation and checkpoint writing occur outside that timer. Inference time is the time to predict the 1,000 original test videos (1×, $t = 1$) at batch 32 under `eval()` and `no_grad()`, timed after the batches are on the device, as the median of three full passes after three warm-up batches.
 
 {{table5}}
 

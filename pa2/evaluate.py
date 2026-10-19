@@ -102,7 +102,7 @@ def summarise(res: dict) -> dict:
 def inference_time(model, test_u8, device, batch=32, repeats=3) -> float:
     """Wall-clock seconds to predict all 1,000 original (1x, t=1) test videos at batch 32,
     under eval() and no_grad(), timed after the batches are on the device. Median of repeats
-    (after one warm-up pass)."""
+    (after three warm-up batches)."""
     X1, _, _ = test_windows(test_u8, 1)
     batches = [X1[s:s + batch].to(device) for s in range(0, len(X1), batch)]
     model.eval()
