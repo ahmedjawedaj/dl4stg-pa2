@@ -43,4 +43,4 @@ The working report build command on this Mac is the project Python running `repo
 
 ## Latest automatic check
 
-2026-10-19 17:05:51 PKT: existing phase 1 process is healthy. A seed 0 has completed 20 of 30 epochs. Latest validation E(5) = 0.025159. Mean training epoch time so far = 25.7 seconds. Phase 1 completion and both prediction commits remain pending. No stress tests or B-D training have run. AI disclosure attribution was corrected to distinguish Claude drafts from Codex execution.
+2026-10-19 17:15:07 PKT: phase 1 is healthy. A seed 0 finished all 30 epochs and its final checkpoint loaded successfully with 480,784 finite parameters. Its final validation E(5) is 0.0221035 and mean training epoch time is 26.55 seconds. The per-epoch resume file was removed after finalization. A seed 1 has completed 9/30 epochs, latest validation E(5) 0.0300264. Expect roughly another 9-12 minutes for seed 1 and phase 1 evaluation, subject to actual runtime. No test-based analysis, stress experiments or prediction commits have happened yet. Keep waiting for both final checkpoints and PHASE 1 DONE before Q2.5.
