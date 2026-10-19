@@ -78,3 +78,5 @@ Read the complete Q1 brief and matched its six required headings to the proposal
 2026-10-19T17:55:56.648740+05:00: phase 3 healthy, C seed 0 has 24 completed epochs and is finishing epoch 25. Existing PID 40259 remains active. Mean C training epoch 28.56 s. No intervention needed and no duplicate jobs launched.
 
 2026-10-19T18:05:59.547215+05:00: C seed 0 completed 30 full-data epochs; final checkpoint loads on CPU with finite tensors and resume file is removed. Mean training epoch 28.57 s. Existing phase 3 automatically advanced to B seed 1 (15/30 complete at inspection). No test evaluation launched alongside training.
+
+2026-10-19T18:15:59.580689+05:00: both B seeds are complete. B seed 1 final checkpoint verified on CPU with finite tensors after 30 full-data epochs, mean training epoch 28.44 s. Existing phase 3 advanced to C seed 1, five epochs complete at inspection. All six D candidate runs remain queued. No intervention needed.
