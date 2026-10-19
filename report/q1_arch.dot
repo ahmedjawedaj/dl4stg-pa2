@@ -1,0 +1,49 @@
+digraph G {
+  rankdir=TB;
+  graph [fontname="Helvetica", fontsize=11, nodesep=0.25, ranksep=0.45, pad=0.2];
+  node  [fontname="Helvetica", fontsize=10, shape=box, style="rounded,filled", fillcolor="#ffffff", color="#555555"];
+  edge  [fontname="Helvetica", fontsize=8.5, color="#555555"];
+
+  subgraph cluster_src { label="1. Data sources (as known at issuance t0)"; style="rounded"; color="#9aa7b8";
+    lev  [label="River levels S1-S4, T1\n10-min, timestamp + arrival time", fillcolor="#e8f0fb"];
+    rain [label="Rainfall R1, R2\nirregular stamps, gauge locations", fillcolor="#e8f0fb"];
+    qact [label="Recorded reservoir releases\n(actual, past only)", fillcolor="#e8f0fb"];
+    qsch [label="Release schedules\nannounced at or before t0\n(announcement + effective times)", fillcolor="#e8f0fb"];
+    stat [label="Static: river graph,\ndistances along river,\nstation locations", fillcolor="#e8f0fb"];
+  }
+
+  subgraph cluster_prep { label="2. QC, alignment, projection"; style="rounded"; color="#9aa7b8";
+    qc   [label="QC: range, spike, flatline\nbad -> missing\nas-of cut: stamped <= t0,\narrived by t0 + 2 min", fillcolor="#fff6e5"];
+    grid [label="Resample to 10-min grid\nrain: sum over (t-10, t]\nlevels: value at t\nschedule: step function,\nlatest announcement wins", fillcolor="#fff6e5"];
+    asm  [label="Assemble node tensor\nX: B x 150 x 7 x F (F = 14)\nnodes: Res, S1, T1, S2, U, S3, S4\ntime: t0-143Δ..t0 (history)\n+ t0+Δ..t0+6Δ (known future)\nΔ = 10 min\nmask + age channels", fillcolor="#fff6e5"];
+    proj [label="Node-type projection\nW_type: F -> d (d = 64)\n+ node embedding e_i\n+ time-of-day encoding\nZ0: B x 150 x 7 x 64", fillcolor="#fff6e5"];
+  }
+
+  subgraph cluster_model { label="3. Space-time encoder: 4 x (T block -> S block)"; style="rounded"; color="#9aa7b8";
+    T [label="T block (per node)\n2 causal dilated convs,\nkernel 3, residual + LN\nB x 150 x 7 x 64", fillcolor="#eaf7ee"];
+    S [label="S block (river graph)\ndirected edge-conditioned conv\nupstream taps over lags 0..5\ngated by flow state, residual + LN\nB x 150 x 7 x 64", fillcolor="#eaf7ee"];
+    rep [label="repeat 4 times\nspatial reach 4 hops (Res -> S4)\ntemporal reach > 150 steps", shape=note, fillcolor="#f4f4f4"];
+  }
+
+  subgraph cluster_out { label="4. Forecast head"; style="rounded"; color="#9aa7b8";
+    sel  [label="Select stations S1-S4\nat future positions t0+Δ..t0+6Δ\nB x 6 x 4 x 64", fillcolor="#f3eafa"];
+    head [label="Per-station MLP -> (m, u, v)\nq0.5 = last valid level + scale x m\nq0.1 = q0.5 - scale x softplus(v)\nq0.9 = q0.5 + scale x softplus(u)", fillcolor="#f3eafa"];
+    out  [label="Forecast t0+60 min\nS1, S2, S3, S4: median + 80% band\nY_hat: B x 4 x 3\n(training uses all 6 horizons: B x 6 x 4 x 3)", fillcolor="#fde2e2", color="#bb3333"];
+  }
+
+  lev -> qc [label="B x 144 x 5"];
+  rain -> qc [label="B x 144 x 2"];
+  qact -> qc [label="B x 144 x 1"];
+  qsch -> grid [label="B x 150 x 1"];
+  qc -> grid;
+  grid -> asm;
+  stat -> asm [label="A: 7 x 7, E: 8 edges x 2"];
+  asm -> proj [label="X"];
+  proj -> T [label="Z0"];
+  T -> S;
+  S -> T [label="x4", style=dashed, constraint=false];
+  S -> sel [label="Z4"];
+  sel -> head; head -> out;
+  stat -> S [style=dotted, label="edge features\n(distance, direction)"];
+
+}

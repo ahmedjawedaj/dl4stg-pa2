@@ -1,0 +1,17 @@
+digraph R {
+ rankdir=LR;
+ graph [fontname="Helvetica", fontsize=11, nodesep=0.3, ranksep=0.55, pad=0.15];
+ edge [color="#555555"];
+  subgraph cluster_g { label="River graph used by S blocks (solid = downstream flow, dashed = weak backwater edge)"; style="rounded"; color="#9aa7b8";
+    node [shape=circle, fixedsize=true, width=0.48, fontsize=9, style=filled];
+    gR [label="Res", fillcolor="#cfe3ff"]; g1 [label="S1", fillcolor="#ffd9d9"]; gT [label="T1", fillcolor="#e0e0e0"];
+    g2 [label="S2", fillcolor="#ffd9d9"]; gU [label="U\n(latent)", fillcolor="#ffffff", style="dashed"];
+    g3 [label="S3", fillcolor="#ffd9d9"]; g4 [label="S4", fillcolor="#ffd9d9"];
+    pr1 [label="R1", shape=box, width=0.4, fillcolor="#fff6e5"]; pr2 [label="R2", shape=box, width=0.4, fillcolor="#fff6e5"];
+    gR -> g1 -> g2 -> g3 -> g4; gT -> g2; gU -> g3;
+    g2 -> gT [style=dashed, color="#999999", arrowsize=0.6, constraint=false];
+    g3 -> gU [style=dashed, color="#999999", arrowsize=0.6, constraint=false];
+    pr1 -> g1 [style=dotted, arrowhead=none]; pr1 -> gT [style=dotted, arrowhead=none];
+    pr2 -> gU [style=dotted, arrowhead=none]; pr2 -> g3 [style=dotted, arrowhead=none];
+  }
+}
