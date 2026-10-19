@@ -1,5 +1,9 @@
 # Assignment 2 execution log
 
+## Current status
+
+All 12 required training runs and all evaluations are complete. Every Q2 answer and required table/figure/GIF is filled. Final model: symmetrised D_dil. No optional D+B run, justified from Table 5. Q2.5 and Q2.11 remain their genuine pre-experiment commits. Ahmed explicitly deferred the original Claude prompts to later, so retain the clearly labelled draft placeholder and do not ask again. The report remains a draft only for that user-owned disclosure. The public repository has been created at https://github.com/ahmedjawedaj/dl4stg-pa2, with upload and final link/layout checks in progress. Do not launch training again. Historical entries below preserve the execution chronology.
+
 ## Authorization and constraints
 
 Ahmed asked Codex: "please take it over and do whats needed" after reviewing the implementation and the proposed phased workflow.
@@ -128,3 +132,13 @@ Read the complete Q1 brief and matched its six required headings to the proposal
 2026-10-19T23:09:16.204097+05:00: D_p8 seed 1 completed all 30 full-data epochs, checkpoint verified on CPU with finite tensors and resume removed. All twelve required runs are complete. Validation-only averaging selected D_dil, reusing both candidate runs. The existing phase 3 script is evaluating original and symmetrised models. Q2.12 was written from the selected architecture and recorded reach check. No optional D+B decision until Table 5 is complete. Initial D seed-0 test metrics show weak, near-constant errors across horizons; preserve this outcome and inspect Figure 6 before interpreting it.
 
 2026-10-19T23:16:01.028642+05:00: all required training remains complete. The existing phase3_final process is evaluating the last wrapped D seed; symmetrised D seed 0 has finished with near-rounding-level gaps and E(5)=0.038539. Symmetrised D evaluation is slower than the learned models because of the eight forward passes, so leave the existing job running. Q2.12-Q2.14 are filled from selected architecture and actual A-D measurements. Added SUBMISSION_CHECKLIST.md mapping every handout item and submission gate to repository evidence. Corrected the inference-timing description to match the actual three-batch warm-up (the handout specifies no full-pass warm-up requirement). An async question asks Ahmed to provide the actual Claude prompts or confirm that they are unavailable, so the final disclosure can be truthful. Do not invent them. GitHub name ahmedjawedaj/dl4stg-pa2 is currently available according to a read-only lookup; no creation/upload yet.
+
+## Phase 3 and scientific writing complete
+
+2026-10-19T23:18:22.445853+05:00: phase 3 finished normally, Tables 5/6 and Figure 6/GIFs exist, and there is no training process left. Inspected the final mirror, rotation and speed panels: seed 0 produces a weak near-uniform field, which is preserved and described honestly. Wrote Q2.15-Q2.17 and the no-D+B decision from the completed Table 5, with its hash in results/db_decision.json. Q2.17 is 122 words. Ahmed replied that he will do the original-Claude-prompt disclosure later. Leave its explicit draft placeholder, do not ask again, and finish all remaining automatic work, PDF checks and end-stage repository preparation.
+
+2026-10-19T23:23:49.889792+05:00: after completing local results/writing and visual draft checks, created the public GitHub repository https://github.com/ahmedjawedaj/dl4stg-pa2. No content uploaded yet. Inserted its actual URL into the report and rebuilding the reviewed draft. Original Claude prompts remain deferred to Ahmed.
+
+## Reviewed deliverable ready for upload
+
+2026-10-19T23:27:18.003141+05:00: all 26 pages were rendered and visually inspected, with full-size checks of the equations, wide Tables 5/6, prediction panels and AI disclosure. Fixed the isolated assumption row, excess disclosure spillover and an equation heading separated from its equations. Verified the actual clickable public-repository URL on page 1, no image overflow, all 17 Q2 answers, eight five-frame GIFs at 900 ms per horizon, the twelve complete runs and genuine prediction chronology. Final strict build correctly refuses only the original-Claude-prompt field that Ahmed explicitly deferred. The reviewed draft is copied to the workspace output/pdf/DL4STG_PA2_report_draft.pdf. Source and PDF SHA256 are recorded in results/submission_audit.json. Publishing the completed local repository next; no LMS submission is made.

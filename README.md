@@ -30,3 +30,14 @@ experiments only). It lists every gap (missing part, answer, table, image, GIF, 
 To use an already-installed Chromium instead of downloading another browser, set
 `PA2_CHROMIUM_EXECUTABLE` to its executable path when invoking the builder.
 If Pandoc is installed outside the current PATH, set `PA2_PANDOC` to its executable path.
+
+See [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md) for the mapping from the original handout
+to every answer, table, figure and submission requirement. All 12 required 30-epoch runs are
+complete. Validation selected `D_dil`, and both selected candidate checkpoints are reused.
+The final model is symmetrised D. Optional D+B was not added, with the Table 5 decision recorded
+in `results/db_decision.json`.
+
+The report retains both seeds and the weak D seed-0 illustrations. Exact symmetry fixes
+consistency but does not establish accurate motion. The original Claude-prompt section is a
+clearly marked draft placeholder that Ahmed will complete before submission. All measurements,
+the Q2.5/Q2.11 prediction commits and the sleep/wake timing record are preserved.

@@ -1,0 +1,21 @@
+{
+  "checks": {
+    "twelve_full_runs_30_epochs": true,
+    "prediction_commit_chronology_and_unchanged_answers": true,
+    "answer_length_limits": true,
+    "saved_metric_arrays_match_summaries_and_test_count": true,
+    "same_final_cases_and_eight_correctly_timed_GIFs": true,
+    "D_selection_matches_six_validation_runs": true,
+    "full_26_page_render_visually_inspected": true,
+    "real_page1_repository_hyperlink": true,
+    "only_deferred_Claude_prompts_remain": true
+  },
+  "deferred_by_user": [
+    "original Claude prompts"
+  ],
+  "pending": [
+    "GitHub content push and remote verification"
+  ],
+  "pdf_sha256": "54eb595dd8b4affa1745df2ef81519457d2e4d5558f19b4fc933379cff4e37b4",
+  "reviewed_at": "2026-10-19T23:26:39.434308+05:00"
+}

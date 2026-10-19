@@ -31,3 +31,9 @@ math { font-size: 105%; }
 .landscape-table { page: landscape; break-before: page; break-after: page; }
 .landscape-table table { font-size: 8pt; table-layout: fixed; }
 .landscape-table th, .landscape-table td { overflow-wrap: anywhere; padding: 4px; }
+.assumptions-table table { table-layout: fixed; }
+.assumptions-table col:nth-child(1) { width: 6% !important; }
+.assumptions-table col:nth-child(2) { width: 33% !important; }
+.assumptions-table col:nth-child(3) { width: 27% !important; }
+.assumptions-table col:nth-child(4) { width: 34% !important; }
+.equation-block { break-inside: avoid; }
