@@ -1,0 +1,6 @@
+{
+  "source": "https://www.cs.toronto.edu/~nitish/unsupervised_video/mnist_test_seq.npy",
+  "size_bytes": 819200096,
+  "md5": "be083ec986bfe91a449d63653c411eb2",
+  "path": "data/MovingMNIST/mnist_test_seq.npy"
+}

@@ -1,0 +1,8 @@
+{
+  "phase": "phase1",
+  "pid": 16049,
+  "started_utc": "2026-10-19T11:55:50.194283+00:00",
+  "log": "logs/run_phase1.log",
+  "command": "caffeinate -i /bin/bash ./run_phase1.sh",
+  "status": "running"
+}
