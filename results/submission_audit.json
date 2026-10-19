@@ -8,14 +8,34 @@
     "D_selection_matches_six_validation_runs": true,
     "full_26_page_render_visually_inspected": true,
     "real_page1_repository_hyperlink": true,
-    "only_deferred_Claude_prompts_remain": true
+    "only_deferred_Claude_prompts_remain": true,
+    "public_repository_and_exact_uploaded_PDF_verified": true
   },
   "deferred_by_user": [
     "original Claude prompts"
   ],
-  "pending": [
-    "GitHub content push and remote verification"
-  ],
+  "pending": [],
   "pdf_sha256": "54eb595dd8b4affa1745df2ef81519457d2e4d5558f19b4fc933379cff4e37b4",
-  "reviewed_at": "2026-10-19T23:26:39.434308+05:00"
+  "reviewed_at": "2026-10-19T23:26:39.434308+05:00",
+  "repository": {
+    "isEmpty": false,
+    "url": "https://github.com/ahmedjawedaj/dl4stg-pa2",
+    "visibility": "PUBLIC"
+  },
+  "uploaded_pdf_git_blob_sha": "592f7e6e01e4ae4dd654eaf6d2f28e03d3e94678",
+  "report_sources_sha256": {
+    "report/ai_disclosure.md": "558d7fd40d40814819cd2f782c4d1eb51d0fa872aa832dbd93ef5e9d825b97f3",
+    "report/build.py": "ffdaaffeb9b50e7d015fe1c1a705de6bc6417d09f115cfc689fbd0d6d2957a27",
+    "report/manual.json": "f26b13ea69859e812e9bf273acf01e8687818b5f739bd2854c84ee68cd656816",
+    "report/q1.md": "72d3f36ac780d4049a3d35561aa975ca8ca6df9c6dca29218587274b0ff112cc",
+    "report/q1_arch.dot": "e74ec8824023ec7118fb6e359d3ae61baf398146a83a1cfc8c7d683ebfd23dcd",
+    "report/q1_graph.dot": "4c73566ed14631599b57700d23e2c5df26d59d6809b72ade62960f3dccedf156",
+    "report/q2_part1.md": "9eb6a35a0bdeb29608e46759afa7996b28bc8479fcf29ba61a8048ac43d700c0",
+    "report/q2_part2.md": "5c022bf96b8cb46dc3ab7b586a03bafbad6a440ed69714d5346bd88843c9fa35",
+    "report/q2_part3.md": "31ce9c2701c68a48d003dbbbcd88150bb3329ec068dd12a1cbb3194a962cb43d",
+    "report/style.css": "db31876dc314bd0a3f1256c0f2a7d0a3c140c7c94067718714061fb35f8ad7d3",
+    "report/title.md": "e66e3b7fa04b1d5411dd9abdb19c6e040c588f00d2b488dcd7bf9978ded90384"
+  },
+  "publication_verified_at": "2026-10-19T23:28:12.640746+05:00",
+  "follow_up_status": "PAUSED after automatic work completed"
 }
