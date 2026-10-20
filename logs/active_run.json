@@ -1,8 +1,15 @@
 {
-  "phase": 3,
-  "pid": 40259,
-  "started_at": "2026-10-19T17:29:25.744548+05:00",
-  "status": "complete",
-  "log": "logs/run_phase3.log",
-  "completed_observed_at": "2026-10-19T23:18:22.445166+05:00"
+  "phase": "D refinement",
+  "pid": 50024,
+  "started_at": "2026-10-20T13:19:08.140896+05:00",
+  "status": "running",
+  "log": "logs/run_d_refinement.log",
+  "plan_commit": "8debfef3ca547dc0a2d008b19829c744e9bdff1f",
+  "candidate": "D_dil64",
+  "seeds": [
+    0,
+    1
+  ],
+  "epochs": 30,
+  "stop_before_new_test_evaluation": true
 }

@@ -1,0 +1,1 @@
+D_dil64 {'analytic_reach_px': 12, 'patch': 4, 'autograd_cell_radius': {'u_tau': 3, 'h1_prev': 3, 'h2_prev': 2}, 'autograd_reach_px': 12, 'params': 480784, 'config': {'patch': 4, 'hidden': [64, 64], 'kernels': [3, 3], 'dilations': [1, 2], 'name': 'D_dil64'}}

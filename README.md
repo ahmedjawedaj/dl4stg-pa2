@@ -76,8 +76,8 @@ To use an already-installed Chromium instead of downloading another browser, set
 If Pandoc is installed outside the current PATH, set `PA2_PANDOC` to its executable path.
 
 See [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md) for the mapping from the original handout
-to every answer, table, figure and submission requirement. All 12 planned 30-epoch runs are
-complete. Validation selected `D_dil`, and both selected candidate checkpoints are reused.
+to every answer, table, figure and submission requirement. The original 12 planned 30-epoch runs
+are complete. Their validation comparison selected `D_dil`, and both selected candidate checkpoints are reused.
 The final model is symmetrised D. Optional D+B was not added, with the Table 5 decision recorded
 in `results/db_decision.json`.
 
@@ -85,3 +85,10 @@ The report retains both seeds and the weak D seed-0 illustrations. Exact symmetr
 consistency but does not establish accurate motion. The original Claude-prompt section is a
 clearly marked draft placeholder that Ahmed will complete before submission. All measurements,
 the Q2.5/Q2.11 prediction commits and the sleep/wake timing record are preserved.
+
+On 20 October, Ahmed authorized one additional candidate, `D_dil64`, to investigate the weak
+D outcome. Its two 30-epoch runs and validation comparison are in progress. The committed
+[refinement plan](experiments/d_refinement_plan.md) fixes the candidate and selection rule and
+discloses that the original test results were already inspected. `./run_d_refinement.sh` trains
+only this candidate and stops after validation selection. The current PDF describes the original
+experiment; it will be updated after this attempt finishes.

@@ -8,7 +8,7 @@
     "D_selection_matches_six_validation_runs": true,
     "full_26_page_render_visually_inspected": true,
     "real_page1_repository_hyperlink": true,
-    "only_deferred_Claude_prompts_remain": true,
+    "only_deferred_Claude_prompts_remain": false,
     "public_repository_and_exact_uploaded_PDF_verified": true
   },
   "deferred_by_user": [
@@ -40,7 +40,7 @@
     "report/title.md": "e66e3b7fa04b1d5411dd9abdb19c6e040c588f00d2b488dcd7bf9978ded90384"
   },
   "publication_verified_at": "2026-10-19T23:28:12.640746+05:00",
-  "follow_up_status": "Performance refinement authorized; follow-up reactivation pending",
+  "follow_up_status": "ACTIVE for authorized D_dil64 refinement",
   "final_readiness_review": {
     "at": "2026-10-19T23:52:29.716346+05:00",
     "path": "reviews/final_readiness_review.md",
