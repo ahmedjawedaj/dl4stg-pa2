@@ -6,6 +6,7 @@ D+B is optional: train it only if Table 5 supports it, and say why in the report
 """
 import argparse
 import json
+from pathlib import Path
 
 from pa2.data import default_device, ensure_dir, load_moving_mnist, split
 from pa2.evaluate import count_params, evaluate, fmt_seeds, get_predictor, inference_time, save_eval
@@ -14,6 +15,8 @@ from pa2.figs import figure3, figure5
 ap = argparse.ArgumentParser()
 ap.add_argument("--db", action="store_true", help="also evaluate D+B and use symmetrised D+B as final")
 ap.add_argument("--final", default=None, choices=["D", "DB"], help="final model (default D, or DB with --db)")
+ap.add_argument("--reuse-unchanged", action="store_true",
+                help="reuse saved A/B/C and symmetrised B metrics/timings; their checkpoints must be unchanged")
 args = ap.parse_args()
 
 device = default_device()
@@ -33,6 +36,16 @@ if args.db:
 S = {}
 for group in list(learned.values()) + list(sym.values()):
     for name in group:
+        if args.reuse_unchanged and name in learned["A"] + learned["B"] + learned["C"] + sym["sym B"]:
+            saved = Path("results/eval") / name.replace(":", "_")
+            with saved.with_suffix(".json").open() as f:
+                S[name] = json.load(f)
+            required = {"E5_1x", "C_M", "E_M", "C_R", "E_R", "E2_1x", "E2_2x", "E2_3x",
+                        "params", "train_time_s", "infer_time_s", "device"}
+            if not required <= S[name].keys() or not saved.with_suffix(".npz").exists():
+                raise ValueError(f"Incomplete saved evaluation for {name}")
+            print(f"{name}: reusing unchanged model's recorded metrics and timings", flush=True)
+            continue
         pred = get_predictor(name, device)
         res = evaluate(pred, test, device, parts=("1x", "M", "R", "speed"))
         base = name.replace("sym:", "")
