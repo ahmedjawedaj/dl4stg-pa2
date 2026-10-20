@@ -14,7 +14,10 @@
   "deferred_by_user": [
     "original Claude prompts"
   ],
-  "pending": [],
+  "pending": [
+    "Additional D_dil64 training and validation selection",
+    "Document refinement and update affected results/report after selection"
+  ],
   "pdf_sha256": "54eb595dd8b4affa1745df2ef81519457d2e4d5558f19b4fc933379cff4e37b4",
   "reviewed_at": "2026-10-19T23:26:39.434308+05:00",
   "repository": {
@@ -37,7 +40,7 @@
     "report/title.md": "e66e3b7fa04b1d5411dd9abdb19c6e040c588f00d2b488dcd7bf9978ded90384"
   },
   "publication_verified_at": "2026-10-19T23:28:12.640746+05:00",
-  "follow_up_status": "PAUSED after automatic work completed",
+  "follow_up_status": "Performance refinement authorized; follow-up reactivation pending",
   "final_readiness_review": {
     "at": "2026-10-19T23:52:29.716346+05:00",
     "path": "reviews/final_readiness_review.md",

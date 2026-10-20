@@ -2,6 +2,8 @@
 
 Selection rule, fixed before any candidate was trained: lowest mean validation E(2) over 1x, 2x
 and 3x (t = 1), averaged over seeds 0 and 1, since D exists to handle all three training speeds.
+The additional D_dil64 candidate and its later chronology are recorded in
+experiments/d_refinement_plan.md. The selection score is unchanged.
 """
 import json
 from collections import defaultdict
@@ -13,6 +15,10 @@ runs = defaultdict(dict)
 for arch in [a for a in CONFIGS if a.startswith("D_")]:
     for s in (0, 1):
         L = json.load(open(f"results/train_logs/D_{arch}_s{s}.json"))
+        if (L["arch"] != arch or L["seed"] != s
+                or [e["epoch"] for e in L["epochs"]] != list(range(1, 31))
+                or L["training_videos"] != 8000 or L["max_batches"] is not None):
+            raise ValueError(f"Incomplete or non-protocol candidate: {arch}, seed {s}")
         v = L["val_final"]
         v["score"] = (v["E2_1x"] + v["E2_2x"] + v["E2_3x"]) / 3
         v["params"], v["epochs"], v["epoch_time_s"] = L["params"], len(L["epochs"]), L["mean_epoch_time_s"]

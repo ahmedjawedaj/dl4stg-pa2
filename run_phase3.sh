@@ -21,7 +21,7 @@ if [ "${1:-}" != "--db" ]; then
   for s in 0 1; do train B $s; train C $s; done
   # model D design: every candidate is trained exactly like a final model (30 epochs, seeds 0
   # and 1) and compared on the validation split only. The winner's two runs are model D.
-  for a in D_k5 D_dil D_p8; do
+  for a in D_k5 D_dil D_p8 D_dil64; do
     for s in 0 1; do
       [ -f checkpoints/D_${a}_s$s.pt ] || $PY -m pa2.train --model D --arch $a --seed $s --val-speeds \
           2>&1 | tee logs/train_D_${a}_s$s.txt

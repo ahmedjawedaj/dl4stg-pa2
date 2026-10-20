@@ -143,6 +143,8 @@ CONFIGS = {
     "D_k5": NetConfig(patch=4, hidden=[46, 46], kernels=[5, 5], dilations=[1, 1], name="D_k5"),
     # 3x3 kernels, layer 2 dilated by 2: 1 + 2 cells = 12 px
     "D_dil": NetConfig(patch=4, hidden=[78, 78], kernels=[3, 3], dilations=[1, 2], name="D_dil"),
+    # Additional validation experiment: keep C's width and change only layer-2 dilation.
+    "D_dil64": NetConfig(patch=4, hidden=[64, 64], kernels=[3, 3], dilations=[1, 2], name="D_dil64"),
     # 8x8 patch fold, 3x3 kernels: 2 cells of 8 px = 16 px
     "D_p8": NetConfig(patch=8, hidden=[70, 70], kernels=[3, 3], dilations=[1, 1], name="D_p8"),
 }
