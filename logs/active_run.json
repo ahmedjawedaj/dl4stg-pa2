@@ -2,7 +2,7 @@
   "phase": "D refinement",
   "pid": 50024,
   "started_at": "2026-10-20T13:19:08.140896+05:00",
-  "status": "running",
+  "status": "training_and_selection_complete",
   "log": "logs/run_d_refinement.log",
   "plan_commit": "8debfef3ca547dc0a2d008b19829c744e9bdff1f",
   "candidate": "D_dil64",
@@ -11,5 +11,6 @@
     1
   ],
   "epochs": 30,
-  "stop_before_new_test_evaluation": true
+  "stop_before_new_test_evaluation": true,
+  "completed_observed_at": "2026-10-20T13:49:15.457522+05:00"
 }

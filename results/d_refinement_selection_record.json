@@ -1,0 +1,18 @@
+{
+  "recorded_at": "2026-10-20T13:49:15.457522+05:00",
+  "plan_commit": "8debfef3ca547dc0a2d008b19829c744e9bdff1f",
+  "original_submission_commit": "995521b",
+  "chosen": "D_dil64",
+  "previous_chosen": "D_dil",
+  "selection_metric": "mean validation E2 over three speeds and two seeds",
+  "scores": {
+    "D_k5": 0.03417948098977407,
+    "D_dil": 0.03293950978914897,
+    "D_dil64": 0.028449759523073832,
+    "D_p8": 0.03792136716842651
+  },
+  "relative_improvement_percent": 13.630288655826206,
+  "new_candidate_test_evaluation_started": false,
+  "selection_sha256": "c3340adeef1cb999cae18a6790648e7c2a7f429bc4f0729c4652b21525dce123",
+  "chronology": "Additional adaptive experiment after original test analysis; new candidate selected from validation before its test evaluation."
+}
