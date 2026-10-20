@@ -48,7 +48,7 @@ in a separate clone. They overwrite generated results and timings in that clone.
 To repeat training, move the supplied `checkpoints/` directory aside in that separate clone
 first. Then run `./run_phase1.sh`, `./run_phase2.sh` and `./run_phase3.sh` in order. Phase scripts
 skip existing final checkpoints and resume incomplete runs. The selected D weights have names
-such as `D_D_dil_s0.pt`: the first D is the experiment model and `D_dil` is the architecture.
+such as `D_D_dil64_s0.pt`: the first D is the experiment model and `D_dil64` is the architecture.
 
 `./run_all.sh` coordinates those phases, but pauses for committed prediction answers and a
 Table 5 decision in `results/db_decision.json` (`train_optional_DB` must be a JSON boolean).
@@ -76,19 +76,25 @@ To use an already-installed Chromium instead of downloading another browser, set
 If Pandoc is installed outside the current PATH, set `PA2_PANDOC` to its executable path.
 
 See [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md) for the mapping from the original handout
-to every answer, table, figure and submission requirement. The original 12 planned 30-epoch runs
-are complete. Their validation comparison selected `D_dil`, and both selected candidate checkpoints are reused.
-The final model is symmetrised D. Optional D+B was not added, with the Table 5 decision recorded
-in `results/db_decision.json`.
+to every answer, table, figure and submission requirement. All 14 full 30-epoch runs are
+complete: A/B/C on two seeds and four D candidates on two seeds. The validation comparison
+selected `D_dil64`, and both winner checkpoints are reused. The final model is symmetrised
+D_dil64. Optional D+B was not added, with the updated Table 5 decision in `results/db_decision.json`.
 
-The report retains both seeds and the weak D seed-0 illustrations. Exact symmetry fixes
-consistency but does not establish accurate motion. The original Claude-prompt section is a
+The report retains both seeds and records the original weak D candidate. The selected refinement
+improves the old final model's mean normal-speed error by 17.2%, but its forecasts remain blurred.
+Exact symmetry fixes consistency but does not establish accurate motion. The original Claude-prompt section is a
 clearly marked draft placeholder that Ahmed will complete before submission. All measurements,
 the Q2.5/Q2.11 prediction commits and the sleep/wake timing record are preserved.
 
 On 20 October, Ahmed authorized one additional candidate, `D_dil64`, to investigate the weak
-D outcome. Its two 30-epoch runs and validation comparison are in progress. The committed
+D outcome. It won the validation comparison, lowering the selection score by 13.6%. The committed
 [refinement plan](experiments/d_refinement_plan.md) fixes the candidate and selection rule and
 discloses that the original test results were already inspected. `./run_d_refinement.sh` trains
-only this candidate and stops after validation selection. The current PDF describes the original
-experiment; it will be updated after this attempt finishes.
+only this candidate and stops after validation selection. Selection was committed as `f4c92ad`
+before the new candidate's test evaluation. The original submission is preserved at `995521b`.
+The updated report includes the additional experiment and its limitations.
+
+For this refinement, `.venv/bin/python -m scripts.phase3_final --reuse-unchanged` retained the
+original A/B/C and symmetrised-B metrics and timings while evaluating the selected D and its
+wrapper. Use that option only when those supplied checkpoints and evaluations are unchanged.

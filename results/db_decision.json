@@ -1,8 +1,8 @@
 {
-  "made_at": "2026-10-19T23:18:22.444048+05:00",
+  "made_at": "2026-10-20T13:53:33.328116+05:00",
   "train_optional_DB": false,
-  "final": "symmetrised D_dil",
+  "final": "symmetrised D_dil64",
   "evidence": "results/table5.md",
-  "table5_sha256": "3202f5ec14a237cd7dcf004a02ff9876b2ce4d9b40248bed6fe853ccdd2d6ce1",
-  "reason": "B reduces consistency gaps and slightly improves rotation error relative to A, but increases original and mirrored errors. D has a small transformed-error penalty compared with its much larger weak-seed problem. Table 5 does not establish a clear accuracy case for adding symmetry augmentation to D; the prescribed wrapper guarantees consistency without retraining."
+  "table5_sha256": "2e97cc06515ab647311dab2035d6ac5ed545130cf3617cebf88c7fef5e910cff",
+  "reason": "B reduces inconsistency and modestly improves rotated error relative to A, but worsens original and mirrored errors. Refined D retains some rotation sensitivity, yet Table 5 does not establish that D+B would improve overall accuracy. Use the prescribed D wrapper and retain the completed controlled comparison; no optional retraining."
 }

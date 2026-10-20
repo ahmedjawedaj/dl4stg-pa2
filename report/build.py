@@ -159,8 +159,10 @@ def main():
         print("GAP:", g)
     if final and gaps:
         sys.exit(f"NOT SUBMISSION READY: {len(gaps)} gaps, no PDF written.")
+    if gaps:
+        md = md.replace("</h1>", "</h1>\n\n<p><strong>DRAFT: outstanding submission requirements remain.</strong></p>", 1)
     src = os.path.join(REP, "report_full.md")
-    open(src, "w").write(md)
+    open(src, "w").write(md.rstrip() + "\n")
     render(src)
     print("built report/DL4STG_PA2_report.pdf", "(DRAFT, not submission ready)" if gaps else "(submission ready)")
 

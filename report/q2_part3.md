@@ -12,9 +12,13 @@
 
 **Model D selection (validation split only).** Each candidate was trained exactly like a final model (30 epochs, seeds 0 and 1). The rule, fixed before any candidate was trained, is the lowest validation E<sup>(2)</sup> averaged over 1×, 2×, 3× and both seeds. The chosen candidate's two runs are model D. Entries are mean (seed 0, seed 1).
 
+**Additional experiment and chronology.** The initial three-design comparison selected D_dil, whose seed 0 had a flat validation history and weak forecasts. After the original test analysis, I requested an improvement attempt on 20 October. One additional design, D_dil64, kept C's 64-channel width and changed only layer-2 dilation. Its two-run plan was committed as `8debfef` before training. The same validation score selected it at 0.0284, versus 0.0329 for D_dil, a 13.6% reduction. This selection was committed as `f4c92ad` before testing the new candidate. Both new seeds completed 30 epochs, bringing the total to 14 runs. The earlier test results had already been seen, so this is a disclosed adaptive extension, not an untouched-test comparison. The original runs remain available at commit `995521b` and the original selection in `results/d_selection_initial.json`. Q2.5 and Q2.11 are unchanged.
+
 {{d_selection}}
 
 **Timing context.** The D_k5 seed-1 screening run spanned a MacBook sleep/wake interval. The original training process continued after wake, and all raw epoch timer readings are retained. Power events and the interruption record are in `logs/sleep_wake_2026-10-19.txt` and `results/sleep_interruption.json`. Timing comparisons reflect these execution conditions and ordinary use of the Mac during the experiments.
+
+The A, B, C and symmetrised-B measurements are retained from the original evaluation. The selected D and its wrapper were timed in the later session on the same Mac. Differences in elapsed time therefore also reflect session conditions, not only architecture.
 
 <div class="landscape-table">
 

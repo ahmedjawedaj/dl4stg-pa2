@@ -2,6 +2,8 @@
 
 <h1 class="title">AI651 Deep Learning for Space, Time and Graphs<br>Assignment 2</h1>
 
+<p><strong>DRAFT: outstanding submission requirements remain.</strong></p>
+
 **Ahmed Jawed** (Roll no. 25280040)
 LUMS, Fall 2026
 
@@ -368,13 +370,18 @@ I predict that B will reduce the mirror and rotation failures of A, especially t
 
 **Model D selection (validation split only).** Each candidate was trained exactly like a final model (30 epochs, seeds 0 and 1). The rule, fixed before any candidate was trained, is the lowest validation E<sup>(2)</sup> averaged over 1×, 2×, 3× and both seeds. The chosen candidate's two runs are model D. Entries are mean (seed 0, seed 1).
 
+**Additional experiment and chronology.** The initial three-design comparison selected D_dil, whose seed 0 had a flat validation history and weak forecasts. After the original test analysis, I requested an improvement attempt on 20 October. One additional design, D_dil64, kept C's 64-channel width and changed only layer-2 dilation. Its two-run plan was committed as `8debfef` before training. The same validation score selected it at 0.0284, versus 0.0329 for D_dil, a 13.6% reduction. This selection was committed as `f4c92ad` before testing the new candidate. Both new seeds completed 30 epochs, bringing the total to 14 runs. The earlier test results had already been seen, so this is a disclosed adaptive extension, not an untouched-test comparison. The original runs remain available at commit `995521b` and the original selection in `results/d_selection_initial.json`. Q2.5 and Q2.11 are unchanged.
+
 | Candidate | Reach (px) | Params | val E<sup>(5)</sup> 1x | val E<sup>(2)</sup> 1x | val E<sup>(2)</sup> 2x | val E<sup>(2)</sup> 3x | mean val E<sup>(2)</sup> (selection score) |
 |---|---|---|---|---|---|---|---|
-| D_dil (chosen) | 12 | 703,888 | 0.0324 (0.0379, 0.0269) | 0.0308 (0.0379, 0.0236) | 0.0332 (0.0379, 0.0285) | 0.0348 (0.0379, 0.0318) | 0.0329 (0.0379, 0.0280) |
+| D_dil64 (chosen) | 12 | 480,784 | 0.0269 (0.0263, 0.0276) | 0.0241 (0.0235, 0.0246) | 0.0290 (0.0286, 0.0293) | 0.0323 (0.0319, 0.0327) | 0.0284 (0.0280, 0.0289) |
+| D_dil | 12 | 703,888 | 0.0324 (0.0379, 0.0269) | 0.0308 (0.0379, 0.0236) | 0.0332 (0.0379, 0.0285) | 0.0348 (0.0379, 0.0318) | 0.0329 (0.0379, 0.0280) |
 | D_k5 | 16 | 709,520 | 0.0344 (0.0395, 0.0293) | 0.0327 (0.0395, 0.0260) | 0.0343 (0.0395, 0.0291) | 0.0356 (0.0395, 0.0317) | 0.0342 (0.0395, 0.0289) |
 | D_p8 | 16 | 695,584 | 0.0379 (0.0379, 0.0379) | 0.0379 (0.0379, 0.0379) | 0.0379 (0.0379, 0.0379) | 0.0379 (0.0379, 0.0379) | 0.0379 (0.0379, 0.0379) |
 
 **Timing context.** The D_k5 seed-1 screening run spanned a MacBook sleep/wake interval. The original training process continued after wake, and all raw epoch timer readings are retained. Power events and the interruption record are in `logs/sleep_wake_2026-10-19.txt` and `results/sleep_interruption.json`. Timing comparisons reflect these execution conditions and ordinary use of the Mac during the experiments.
+
+The A, B, C and symmetrised-B measurements are retained from the original evaluation. The selected D and its wrapper were timed in the later session on the same Mac. Differences in elapsed time therefore also reflect session conditions, not only architecture.
 
 <div class="landscape-table">
 
@@ -385,7 +392,7 @@ I predict that B will reduce the mirror and rotation failures of A, especially t
 | A (baseline, 1x) | 0.0219 (0.0223, 0.0216) | 0.00178 (0.00172, 0.00183) | 0.0226 (0.0229, 0.0222) | 0.00280 (0.00271, 0.00290) | 0.0236 (0.0238, 0.0234) | 0.0185 (0.0188, 0.0182) | 0.0455 (0.0447, 0.0463) | 0.0534 (0.0526, 0.0541) | 480,784 | 27.2 (26.6, 27.9) | 1.12 (1.16, 1.08) |
 | B (baseline, 1x, sym. aug.) | 0.0229 (0.0237, 0.0221) | 0.00139 (0.00143, 0.00135) | 0.0229 (0.0237, 0.0221) | 0.00166 (0.00160, 0.00173) | 0.0229 (0.0237, 0.0221) | 0.0191 (0.0198, 0.0184) | 0.0453 (0.0453, 0.0453) | 0.0523 (0.0521, 0.0525) | 480,784 | 27.8 (27.1, 28.4) | 1.21 (1.11, 1.30) |
 | C (baseline, 1x/2x/3x) | 0.0274 (0.0276, 0.0273) | 9.26e-04 (6.27e-04, 0.00123) | 0.0277 (0.0278, 0.0275) | 0.00200 (0.00141, 0.00259) | 0.0285 (0.0285, 0.0285) | 0.0236 (0.0236, 0.0236) | 0.0291 (0.0292, 0.0290) | 0.0336 (0.0337, 0.0336) | 480,784 | 31.2 (28.6, 33.8) | 1.11 (1.09, 1.14) |
-| D (D_dil, 1x/2x/3x) | 0.0329 (0.0385, 0.0272) | 3.33e-04 (1.00e-05, 6.57e-04) | 0.0329 (0.0385, 0.0273) | 9.07e-04 (1.01e-05, 0.00180) | 0.0334 (0.0385, 0.0282) | 0.0312 (0.0386, 0.0239) | 0.0335 (0.0385, 0.0285) | 0.0355 (0.0386, 0.0324) | 703,888 | 69.9 (73.1, 66.7) | 3.14 (3.03, 3.26) |
+| D (D_dil64, 1x/2x/3x) | 0.0272 (0.0265, 0.0279) | 7.67e-04 (8.80e-04, 6.53e-04) | 0.0274 (0.0268, 0.0280) | 0.00202 (0.00213, 0.00192) | 0.0284 (0.0278, 0.0290) | 0.0243 (0.0237, 0.0249) | 0.0291 (0.0287, 0.0295) | 0.0329 (0.0325, 0.0333) | 480,784 | 24.1 (22.9, 25.2) | 0.466 (0.465, 0.467) |
 
 </div>
 
@@ -393,11 +400,11 @@ I predict that B will reduce the mirror and rotation failures of A, especially t
 
 <div class="answer">
 
-Model D is D_dil, selected by the fixed validation-only rule across all three speeds and both seeds. It keeps the 4x4 pixel fold, two ConvLSTM layers, the 1x1 output projection, pixel shuffle, sigmoid and the same nine-step autoregressive rollout. Both recurrent layers have 78 hidden channels and 3x3 kernels. Layer 1 uses dilation 1 and padding 1, while layer 2 uses dilation 2 and padding 2. D uses the same speed augmentation as C and no symmetry augmentation.
+Model D is D_dil64, selected by the fixed validation score after the disclosed additional experiment. It keeps C's 4x4 pixel fold, two 64-channel ConvLSTM layers, 3x3 kernels, 1x1 output projection, pixel shuffle, sigmoid and nine-step autoregressive rollout. Only the second layer's dilation and padding change from 1 to 2. The first layer keeps dilation 1 and padding 1. D uses the same speed augmentation as C and no symmetry augmentation. With each seed, its initial parameter tensors exactly match C's because dilation changes the spatial connections without changing the weight shapes.
 
-Using exactly the Q2.3 conventions, one folded-grid cell is four original pixels. The first convolution moves information by at most one cell and the second by two cells. The longest path within one step, from the current input or previous first-layer hidden state through both convolutions, therefore has reach (1 + 2) x 4 = 12 pixels. The previous second-layer hidden state has a two-cell path, or eight pixels. Pointwise gates, the 1x1 projection and reshuffles add no reach. The autograd check in logs/reach_D.txt confirms radii of three cells for u_tau and h1_prev and two for h2_prev. Thus D has strictly larger reach than A (12 > 8 pixels), with no attention.
+Under the Q2.3 conventions, one folded-grid cell is four original pixels. The longest path from the current input or previous first-layer hidden state passes through the first convolution's one-cell radius and the second convolution's two-cell radius. Reach is therefore (1 + 2) x 4 = 12 pixels. The previous second-layer hidden state has a two-cell path, or eight pixels. Pointwise gates, the output projection and reshuffles add no reach. The autograd check in logs/reach_D_dil64.txt confirms radii of three cells for u_tau and h1_prev and two for h2_prev. Thus D has strictly larger reach than A (12 > 8 pixels), with no attention.
 
-The parameter count is 264,264 in layer 1, 438,360 in layer 2 and 1,264 in the output projection, totalling 703,888, below the 721,176 limit (1.464x A). Both selected final-epoch candidate checkpoints are reused as D. The larger theoretical reach does not by itself guarantee successful optimisation or better test forecasts; the measured seed outcomes are assessed in Q2.13.
+D has the same 480,784 parameters as A and C: 184,576 in layer 1, 295,168 in layer 2 and 1,040 in the output projection, below the 721,176 limit. Both final-epoch candidate runs are reused. This gives a closer C-to-D comparison than the original 78-channel candidate, although dilation also changes which intermediate locations are sampled.
 
 </div>
 
@@ -405,13 +412,13 @@ The parameter count is 264,264 in layer 1, 438,360 in layer 2 and 1,264 in the o
 
 <div class="answer">
 
-Appearance is the best-supported label for the transformation-sensitive part of A's failure at 1x. In Table 5, changing only symmetry exposure from A to B lowers C_M from 0.00178 to 0.00139 (21.7%) and C_R from 0.00280 to 0.00166 (40.8%). B's rotated error improves from A's 0.0236 to 0.0229, although its mirrored error increases slightly from 0.0226 to 0.0229. B has almost no transformed-error penalty relative to its own original E(5) = 0.0229. Thus the evidence supports an appearance-dependent rule, especially for rotation, without establishing that augmentation improves every forecast.
+Appearance is the best-supported label for A's transformation-sensitive failure at 1x. In Table 5, changing only symmetry exposure from A to B lowers C_M from 0.00178 to 0.00139 (21.7%) and C_R from 0.00280 to 0.00166 (40.8%). Rotated error improves from 0.0236 to 0.0229, although mirrored error increases slightly from 0.0226 to 0.0229. B has almost no transformed-error penalty relative to its own original E(5) = 0.0229. This supports appearance dependence, especially under rotation, without showing that augmentation improves every forecast.
 
-Unfamiliar motion explains a substantial part of the speed failure. C changes training speeds while retaining A's architecture and 8-pixel reach. Its mean E(2) falls from A's 0.0455 to 0.0291 at 2x and from 0.0534 to 0.0336 at 3x, reductions of 36.0% and 37.0%. This is a large gain without any increase in structural reach. C still has higher error at 3x than at 1x (0.0336 versus 0.0236), but that residual alone cannot be labelled architectural reach.
+Unfamiliar motion explains a substantial part of the speed failure. C changes training speeds while retaining A's architecture and 8-pixel reach. Mean E(2) falls from A's 0.0455 to 0.0291 at 2x and from 0.0534 to 0.0336 at 3x, reductions of 36.0% and 37.0%. Exposure therefore produces a large gain without increasing reach.
 
-The C-to-D comparison does not establish architectural reach as the remaining dominant cause. Despite its 12-pixel reach, D has worse mean 3x E(2) than C: 0.0355 versus 0.0336, a 5.45% increase. D seed 1 is slightly better than C seed 1 at 3x (0.0324 versus 0.0336), while D seed 0 is worse (0.0386 versus 0.0337). D seed 0 has weak, almost horizon-independent forecasts and very small consistency gaps, so its consistency must not be mistaken for successful tracking. The seed variation and validation plateaus show that optimisation and the changed parameterisation matter here.
+Architectural reach receives modest additional support from the refined C-to-D comparison. D changes only layer-2 dilation, with the same width, initial parameter tensors, parameter count and speed training as C. Its mean 3x E(2) is 0.0329 versus C's 0.0336, a 2.11% reduction. Both seeds improve: D gives 0.0325 and 0.0333, versus C's 0.0337 and 0.0336. The 2x mean improves by only 0.231%, and the 1x first-two-horizon error worsens by 2.85%. Thus larger reach helps somewhat at 3x, but this is not the clean case of C failing while D succeeds. Dilation also changes the spatial sampling pattern, and two seeds do not establish statistical robustness.
 
-Had C remained poor at 3x while both D seeds did well under the same speed training, that would support a reach limitation after exposure was controlled. More examples can improve the function learned inside the architecture's dependency paths, but cannot create a new path beyond its structural reach. The actual results do not supply that clean contrast. Architectural reach remains a plausible limitation to investigate, rather than a failure conclusively diagnosed by this experiment. The Q2.11 prediction that D would improve 3x performance further was therefore not supported by the two-seed mean.
+The original 78-channel D_dil was worse than C on average because one seed plateaued. Its retained results show why reach alone does not guarantee useful learned dynamics. The additional 64-channel candidate improves mean 1x E(5) by 17.2% and 3x E(2) by 7.17% relative to that original D. This later candidate was selected on validation after the earlier test analysis, as disclosed above. Q2.11's prediction of further 3x improvement is supported only modestly by the final comparison. More training examples can improve computations along existing dependency paths, but cannot carry information beyond the architecture's one-step reach.
 
 </div>
 
@@ -419,9 +426,11 @@ Had C remained poor at 3x while both D seeds did well under the same speed train
 
 <div class="answer">
 
-Yes. Relative to A's 1x E(5) = 0.0219, Table 5 gives B = 0.0229 (+4.46%), C = 0.0274 (+25.0%) and D = 0.0329 (+49.8%). B trades a modest original-speed cost for lower inconsistency and a small rotation-error gain, although mirroring is slightly less accurate. Whether that is worthwhile depends on how often transformed appearances matter.
+Yes. Relative to A's 1x E(5) = 0.0219, Table 5 gives B = 0.0229 (+4.46%), C = 0.0274 (+25.0%) and refined D = 0.0272 (+24.0%). B pays a modest original-speed cost for lower inconsistency and a small rotation-error gain, although mirroring is slightly less accurate. The trade is useful only when transformed appearances matter enough.
 
-C's cost is worthwhile for a service that must handle all three speeds: 2x and 3x E(2) improve by about 36-37%, and the mean E(2) over the three speeds falls from A's 0.0391 to C's 0.0288. For an application restricted to original 1x clips, A remains more accurate. D does not justify its extra cost on the two-seed results: its mean errors are worse than C at every reported speed, training takes about 69.9 versus 31.2 seconds per epoch, and inference takes 3.14 versus 1.11 seconds per 1,000 videos. The final-model construction still follows the handout's prescribed D-based route, but these comparisons qualify any claim that larger reach made the learned predictor better.
+C and D offer a stronger trade for applications that must handle all three speeds. D reduces A's 2x and 3x E(2) by 36.1% and 38.3%. Against C, D improves 1x E(5) by 0.822% and 3x E(2) by 2.11%, but worsens 1x E(2) by 2.85%, so it does not dominate every metric. For original 1x clips alone, A remains more accurate.
+
+D has the same 480,784 parameters as C. Its recorded training and inference times are 24.1 seconds per epoch and 0.466 seconds per 1,000 videos, versus C's 31.2 and 1.11 seconds. These are measurements from different sessions on the same Mac, so they do not establish a controlled speedup from dilation. The larger practical benefit of the refinement is avoiding the original D seed-0 plateau without increasing parameter count; the gain over the already useful C is small.
 
 </div>
 
@@ -431,7 +440,7 @@ C's cost is worthwhile for a service that must handle all three speeds: 2x and 3
 $$\bar f(T X) = \frac{1}{8} \sum_{g \in G} g^{-1} f(g T X) = \frac{1}{8} \sum_{g' \in G} T g'^{-1} f(g' X) = T \bar f(X),$$
 substituting $g' = gT$ (so $g^{-1} = T g'^{-1}$), which runs over all of $G$ as $g$ does. Hence $\bar f(T X) = T \bar f(X)$ for every $X$, and $C_T = \mathrm{MSE}(\bar f(TX), T \bar f(X)) = 0$ for $T = M$ and $T = R$, whatever $f$ is. In floating point the eight terms are summed in a different order on each side, so the measured gaps are at rounding level.
 
-**Final choice: symmetrised D (D_dil).** Both selected D checkpoints are wrapped without further training. I did not add optional D+B. Table 5 shows that B reduces inconsistency and improves rotation error modestly relative to A, but its original and mirrored errors are slightly worse. D's transformed-error penalty is small beside its weak seed-0 forecast, so these results do not establish a clear accuracy benefit from adding symmetry augmentation to D. The prescribed wrapper provides exact consistency without another training run. This follows the required D-based final construction; it does not claim that D is the most accurate learned model. The decision and Table 5 hash are recorded in results/db_decision.json.
+**Final choice: symmetrised D (D_dil64).** Both validation-selected D checkpoints are wrapped without further training. I did not add optional D+B. In Table 5, B reduces inconsistency and improves rotation error modestly relative to A, but slightly worsens original and mirrored errors. Refined D has some remaining rotation sensitivity, yet the table does not establish that adding B's augmentation would improve its overall accuracy. I therefore use the prescribed symmetry wrapper and retain the completed controlled comparison. The renewed decision and the updated Table 5 hash are in results/db_decision.json.
 
 <div class="landscape-table">
 
@@ -440,7 +449,7 @@ substituting $g' = gT$ (so $g^{-1} = T g'^{-1}$), which runs over all of $G$ as 
 | Model | E<sup>(5)</sup> 1x | C<sub>M</sub> | E<sub>M</sub> | C<sub>R</sub> | E<sub>R</sub> | E<sup>(2)</sup> 1x | E<sup>(2)</sup> 2x | E<sup>(2)</sup> 3x | Params | Train s/epoch | Inference s |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | symmetrised B | 0.0222 (0.0231, 0.0214) | 9.88e-17 (9.87e-17, 9.89e-17) | 0.0222 (0.0231, 0.0214) | 8.00e-17 (8.04e-17, 7.96e-17) | 0.0222 (0.0231, 0.0214) | 0.0187 (0.0194, 0.0179) | 0.0447 (0.0448, 0.0446) | 0.0513 (0.0513, 0.0514) | 480,784 | 27.8 (27.1, 28.4) | 10.2 (9.45, 10.9) |
-| symmetrised D (D_dil) = final model | 0.0328 (0.0385, 0.0272) | 3.99e-17 (2.14e-17, 5.84e-17) | 0.0328 (0.0385, 0.0272) | 3.14e-17 (1.62e-17, 4.66e-17) | 0.0328 (0.0385, 0.0272) | 0.0312 (0.0386, 0.0239) | 0.0336 (0.0385, 0.0286) | 0.0354 (0.0386, 0.0323) | 703,888 | 69.9 (73.1, 66.7) | 30.3 (30.4, 30.2) |
+| symmetrised D (D_dil64) = final model | 0.0272 (0.0265, 0.0279) | 6.70e-17 (6.60e-17, 6.80e-17) | 0.0272 (0.0265, 0.0279) | 5.30e-17 (5.34e-17, 5.26e-17) | 0.0272 (0.0265, 0.0279) | 0.0243 (0.0238, 0.0249) | 0.0291 (0.0287, 0.0295) | 0.0328 (0.0324, 0.0333) | 480,784 | 24.1 (22.9, 25.2) | 3.84 (3.84, 3.84) |
 
 </div>
 
@@ -462,13 +471,13 @@ substituting $g' = gT$ (so $g^{-1} = T g'^{-1}$), which runs over all of $G$ as 
 
 <div class="answer">
 
-Learned symmetry in B encourages agreement but is approximate. Table 5 gives B C_M = 0.00139 and C_R = 0.00166, alongside E_M = E_R = 0.0229 after rounding. Its original E(5) is also 0.0229. Relative to A, the consistency gaps are smaller, yet they are far from zero and original-speed accuracy is slightly worse.
+Learned symmetry in B is approximate. Table 5 gives C_M = 0.00139 and C_R = 0.00166, alongside E_M = E_R = 0.0229 after rounding. Original E(5) is also 0.0229. Relative to A, the consistency gaps are smaller, but they remain nonzero and original-speed accuracy is slightly worse.
 
-Built-in group averaging is exact in real arithmetic because the eight transformations can be reindexed under any group element, as proved above. Table 6 gives symmetrised B C_M = 9.88e-17 and C_R = 8.00e-17, with original and transformed errors all 0.0222. Symmetrised D has C_M = 3.99e-17 and C_R = 3.14e-17, with corresponding errors 0.0328. These are floating-point residuals, not learned approximate symmetry. Both seeds are included in the tables. Exact consistency does not imply useful motion: the weak D seed remains weak after wrapping.
+Group averaging is exact in real arithmetic because its eight terms can be reindexed under any square symmetry, as proved above. In Table 6, symmetrised B has C_M = 9.88e-17 and C_R = 8.00e-17, with original and transformed errors all 0.0222. Final symmetrised D has C_M = 6.70e-17 and C_R = 5.30e-17, with corresponding errors 0.0272. These gaps are floating-point residuals. Consistency is guaranteed, while correctness still depends on the learned forecasts.
 
-For B, wrapping improves mean original E(5) by 2.97% (0.0229 to 0.0222) and also improves both transformed errors. For D, original E(5) improves by only 0.0198% before rounding, so the practical accuracy gain is negligible. D's 2x E(2) becomes slightly worse, from 0.0335 to 0.0336, while its 3x E(2) changes little. Inference rises from 1.21 to 10.2 seconds per 1,000 videos for B (8.43x) and from 3.14 to 30.3 seconds for D (9.64x). Parameter count and underlying training time are unchanged.
+Wrapping B improves original E(5) by 2.97% and improves both transformed errors. For D, wrapping slightly worsens original E(5) by 0.0703% before rounding, with small increases for both seeds. Its 1x and 2x E(2) also increase by about 0.15%, while 3x E(2) improves by 0.268%. Mirrored and rotated errors improve from 0.0274 and 0.0284 to 0.0272. The wrapper therefore buys exact agreement and transformed-scene accuracy at a very small original-scene cost.
 
-Averaging can blur forecasts when different transformed inputs produce inverse-aligned predictions with different positions or stroke shapes. It can hurt an originally accurate orientation if the other seven views are less accurate, even though mean squared error averaged across the whole symmetry orbit cannot exceed the corresponding average base-model risk. Here it did not increase mean original-speed E(5), but D shows almost no benefit and a small 2x cost. Figure 6's featureless output is inherited from the weak underlying seed; exact symmetry does not recover the missing digits.
+Inference rises from 1.21 to 10.2 seconds per 1,000 videos for B (8.43x), and from 0.466 to 3.84 seconds for D (8.23x). Parameter count and underlying training time are unchanged. Averaging can blur inverse-aligned forecasts that disagree in position or shape, and hurt an originally accurate orientation when other views are worse. Mean squared error averaged over the whole symmetry orbit cannot increase relative to the corresponding average base-model risk, but error on the original orientation can increase. D exhibits that small original-speed cost here; its Figure 6 predictions also remain visibly blurred.
 
 </div>
 
@@ -476,9 +485,9 @@ Averaging can blur forecasts when different transformed inputs produce inverse-a
 
 <div class="answer">
 
-No. In the mirror case from Q2.7, video 9658 at 1x, Figure 6(a) rows 3 and 4 now agree to floating-point precision: C_M falls from A's 0.00621 to 2.17e-17. But the final seed-0 model produces nearly uniform dark squares instead of the moving 9 and 3. Its E_M is 0.0451, worse than A's 0.0230 on this case. It removes the inconsistent merging and placement only by losing the recognisable forecast altogether. This is a consistent failure, not a correct motion account.
+The mirror disagreement is fixed, but the forecast is still not fully correct. For video 9658 at 1x, Figure 6(a) rows 3 and 4 now agree: C_M is 7.95e-17 versus A's 0.00621. The refined final seed-0 model predicts two moving patches that approach and merge, rather than the featureless output of the original D candidate. However, the 9 and 3 lose their strokes, and the overlap becomes a diffuse mass. Its E_M = 0.0292 is still worse than A's 0.0230 on this case, although much better than the original final model's 0.0451. Consistent motion-like output is an improvement, not a successful reconstruction of both digits.
 
-The group wrapper fixes commutation by construction. The A-to-C comparison supports speed exposure as a remedy for much of the population-level fast-motion error. The C-to-D comparison does not show a reliable reach benefit across both seeds, and the final seed-0 illustration does not demonstrate one. Figure 6(b) reinforces this distinction: video 9026 has almost the same featureless forecast at all speeds, with E(2) = 0.0455, 0.0454 and 0.0461. Its fast-speed pixel errors are lower than A's on this example, but it still fails to locate or bounce the digits. The seed-0 figures are retained as required rather than replaced with the more successful seed.
+Group averaging fixes commutation exactly. The A-to-C results attribute most of the population-level fast-motion gain to speed exposure; the C-to-refined-D comparison supports a smaller additional 3x gain from the changed spatial connections. These comparisons do not isolate each change's effect on this individual video. In Figure 6(b), video 9026 now has localized but blurred forecasts, with E(2) = 0.0271, 0.0374 and 0.0388 at 1x, 2x and 3x. The fast-speed errors improve on A's 0.0644 and 0.0616, but the normal-speed error exceeds A's 0.0186. At faster speeds, the patches still lose digit shape and miss precise positions and bounce timing.
 
 </div>
 
@@ -486,7 +495,7 @@ The group wrapper fixes commutation by construction. The A-to-C comparison suppo
 
 <div class="answer">
 
-Not convincingly as a reliable final model. Speed training helps: C reduces A's 2x and 3x errors by about 36-37%, so exposure matters. The final symmetrised D has exact consistency, but mean 1x error is worse than A and C, and its seed-0 examples are featureless forecasts. Seed 1 performs better, which makes the failure variable rather than a demonstrated architectural cure. A skeptic would need both seeds to track digit positions and wall bounces across speeds and transformations, alongside improvements over Blank and Copy-last. Low consistency gaps and background-dominated pixel MSE alone are insufficient. One test still missing is forecasting unfamiliar non-digit shapes with known trajectories, including overlap and bounces; that would test whether the learned rule transfers beyond digit appearance.
+The final model learned useful predictive structure, but a general motion rule is not established. Speed exposure accounts for most of the improvement: C reduces A's fast-motion errors by about 36-37%. Refined D improves 3x error by a further 2.11% over C, with both seeds benefiting, and its wrapper guarantees symmetry consistency. Its forecasts now move and localize the digits, but remain blurred and unreliable through overlap and bounces. Original-speed error still exceeds A's. A skeptic would need reliable trajectories and wall bounces across speeds, shapes and seeds, rather than consistency or background-dominated pixel MSE alone. One missing test is forecasting unfamiliar non-digit shapes with known trajectories. The additional D design followed earlier test analysis, so an untouched evaluation set would also strengthen the evidence.
 
 </div>
 
@@ -513,12 +522,16 @@ Not convincingly as a reliable final model. Speed training helps: C reduces A's 
 
 Codex produced the independent reviews, setup and recovery fixes, local execution, result checks and report revisions recorded in WORK_LOG.md. This placeholder is not a record of the original Claude prompts.
 
+**Performance-refinement request (verbatim):**
+
+> lets improve model performance before submission if its not required
+
+Codex recorded the additional D_dil64 plan before training, ran both seeds, selected on validation, and updated the evaluation and report. This extension occurred after the original test analysis.
+
 **Edits to generated work and verification.**
 
 Codex fixed the local pip setup, verified the official dataset by size and MD5, and added per-epoch recovery. An isolated interruption/resume check matched uninterrupted training. Synthetic window and transformation checks, the MPS training path, parameter counts and structural reach were checked in the actual environment. Synthetic checks and earlier review fixtures are excluded from the reported experimental results.
 
 The report builder now retrieves prediction answers from the original phase-gate commits and flags missing content or later answer edits. Layout revisions fit images to the page, paginate prediction panels and put wide tables on landscape pages. Histogram ticks and zero-delay GIF playback were corrected. Q1 revisions separated facts from provisional assumptions, clarified masks and qualified its runtime estimate.
 
-Q2 answers and final comparisons use measured outputs and inspected examples. Both seeds are retained, including the weak D seed and its required illustrations. Q2.5 and Q2.11 remain unedited after their pre-experiment commits. Table 5 did not establish a clear accuracy case for optional D+B, so it was not trained. These records describe assistant work and automated checks, not checks personally performed by the student.
-
-**Ordering of the prediction answers.** The report build inserts Q2.5 and Q2.11 from the git commits recorded when the corresponding phase started (`logs/phase2_gate.txt`, `logs/phase3_gate.txt`), and flags any later difference in the working copy. `run_phase2.sh` and `run_phase3.sh` refuse to start until the answer file is committed without uncommitted edits.
+Q2 answers and final comparisons use measured outputs and inspected examples. Both seeds of every candidate are retained, including the original weak D run. The report documents the later D_dil64 refinement and its selection before new-candidate test evaluation. Q2.5 and Q2.11 remain unedited after their pre-experiment commits. These records describe assistant work and automated checks, not checks personally performed by the student.

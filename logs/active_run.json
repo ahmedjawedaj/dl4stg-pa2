@@ -1,16 +1,10 @@
 {
-  "phase": "D refinement",
-  "pid": 50024,
-  "started_at": "2026-10-20T13:19:08.140896+05:00",
-  "status": "training_and_selection_complete",
-  "log": "logs/run_d_refinement.log",
-  "plan_commit": "8debfef3ca547dc0a2d008b19829c744e9bdff1f",
-  "candidate": "D_dil64",
-  "seeds": [
-    0,
-    1
-  ],
-  "epochs": 30,
-  "stop_before_new_test_evaluation": true,
-  "completed_observed_at": "2026-10-20T13:49:15.457522+05:00"
+  "phase": "refined final evaluation",
+  "pid": 70594,
+  "status": "complete",
+  "started_at": "2026-10-20T13:49:27.629531+05:00",
+  "selection_commit": "f4c92ad4116f9951a098f4cab7c366aa22f6a1fe",
+  "log": "logs/refined_final_evaluation.log",
+  "chosen": "D_dil64",
+  "completed_observed_at": "2026-10-20T13:53:33.328116+05:00"
 }

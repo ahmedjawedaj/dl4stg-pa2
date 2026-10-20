@@ -1,5 +1,13 @@
 # Final readiness review
 
+## Update after the 20 October refinement
+
+The original review below describes the twelve-run submission at `995521b`. A later authorized candidate, D_dil64, completed both required seeds and was selected on validation before its test evaluation. There are now fourteen full runs. The new final model's normal-speed test E(5) is 0.027208 versus the original final model's 0.032845, a 17.2% reduction. Its seed-0 forecasts are localized moving patches instead of the earlier near-uniform field, but remain blurred and imperfect through overlap and bounces. Selected D's mean 3x E(2) is 2.11% better than C, while its 1x E(2) is worse. The earlier conclusion that selected D is worse than C at every speed no longer applies.
+
+The report explicitly discloses the adaptive extension after original test analysis and retains every previous run and prediction commit. Original Claude prompts remain deferred. See `experiments/d_refinement_plan.md`, `results/d_refinement_selection_record.json` and the updated report for the current evidence.
+
+## Original review, 19 October
+
 Reviewed against the original handout and the completed local submission on 19 October 2026.
 
 ## Verdict
