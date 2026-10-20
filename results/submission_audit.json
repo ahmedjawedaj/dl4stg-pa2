@@ -7,7 +7,7 @@
     "full_26_page_render_visually_inspected": true,
     "real_page1_repository_hyperlink": true,
     "only_deferred_Claude_prompts_remain": true,
-    "public_repository_and_exact_uploaded_PDF_verified": false,
+    "public_repository_and_exact_uploaded_PDF_verified": true,
     "fourteen_full_runs_30_epochs": true,
     "D_selection_matches_eight_validation_runs": true,
     "adaptive_refinement_disclosed_and_selected_before_new_test": true,
@@ -16,9 +16,7 @@
   "deferred_by_user": [
     "original Claude prompts"
   ],
-  "pending": [
-    "Publish and verify updated PDF and stop completed follow-up"
-  ],
+  "pending": [],
   "pdf_sha256": "075f2075376f284f2cb2255100e3b938a08f624744ec68eb4bc9f48496387ccd",
   "reviewed_at": "2026-10-20T14:09:17.995206+05:00",
   "repository": {
@@ -39,8 +37,8 @@
     "report/style.css": "db31876dc314bd0a3f1256c0f2a7d0a3c140c7c94067718714061fb35f8ad7d3",
     "report/title.md": "e66e3b7fa04b1d5411dd9abdb19c6e040c588f00d2b488dcd7bf9978ded90384"
   },
-  "publication_verified_at": "2026-10-19T23:28:12.640746+05:00",
-  "follow_up_status": "ACTIVE for authorized D_dil64 refinement",
+  "publication_verified_at": "2026-10-20T14:10:18.669975+05:00",
+  "follow_up_status": "DELETED after completed refinement and verified publication",
   "final_readiness_review": {
     "at": "2026-10-19T23:52:29.716346+05:00",
     "path": "reviews/final_readiness_review.md",
@@ -63,5 +61,7 @@
     "D_3x_error_reduction_versus_C_percent": 2.11046,
     "optional_D_plus_B": false,
     "original_test_exposure_disclosed": true
-  }
+  },
+  "uploaded_pdf_git_blob_sha": "5369d36dab740080c238c3c372371edd071e8bb9",
+  "published_artifacts_commit": "6fe10e167a0cc0855b357d9ac1142f831b76b702"
 }
