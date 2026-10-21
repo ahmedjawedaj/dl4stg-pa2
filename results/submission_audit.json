@@ -6,7 +6,7 @@
     "same_final_cases_and_eight_correctly_timed_GIFs": true,
     "real_page1_repository_hyperlink": true,
     "only_deferred_Claude_prompts_remain": true,
-    "public_repository_and_exact_uploaded_PDF_verified": false,
+    "public_repository_and_exact_uploaded_PDF_verified": true,
     "fourteen_full_runs_30_epochs": true,
     "D_selection_matches_eight_validation_runs": true,
     "adaptive_refinement_disclosed_and_selected_before_new_test": true,
@@ -18,9 +18,7 @@
   "deferred_by_user": [
     "original Claude prompts"
   ],
-  "pending": [
-    "Verify publication of updated disclosure PDF"
-  ],
+  "pending": [],
   "pdf_sha256": "b1affb0bc0e24fb366d44008c242f645570ef2e32956d43159d7c64d00703140",
   "reviewed_at": "2026-10-21T22:01:49.471233+05:00",
   "repository": {
@@ -41,7 +39,7 @@
     "report/style.css": "db31876dc314bd0a3f1256c0f2a7d0a3c140c7c94067718714061fb35f8ad7d3",
     "report/title.md": "e66e3b7fa04b1d5411dd9abdb19c6e040c588f00d2b488dcd7bf9978ded90384"
   },
-  "publication_verified_at": "2026-10-20T14:10:18.669975+05:00",
+  "publication_verified_at": "2026-10-21T22:02:13.655871+05:00",
   "follow_up_status": "DELETED after completed refinement and verified publication",
   "final_readiness_review": {
     "at": "2026-10-19T23:52:29.716346+05:00",
@@ -66,7 +64,7 @@
     "optional_D_plus_B": false,
     "original_test_exposure_disclosed": true
   },
-  "published_artifacts_commit": "6fe10e167a0cc0855b357d9ac1142f831b76b702",
+  "published_artifacts_commit": "593d38270a694ed0782d5ce8480abeee29a83787",
   "page_count": 27,
   "disclosure_revision": {
     "at": "2026-10-21T22:01:49.471233+05:00",
@@ -74,5 +72,6 @@
     "original_initial_prompt_record_supplied": false,
     "full_prompt_disclosure_compliance": "unresolved",
     "strict_final_guard": "still blocks missing original record"
-  }
+  },
+  "uploaded_pdf_git_blob_sha": "71558f6d87a03cf02e9cb36236536fa98eaf60ac"
 }
