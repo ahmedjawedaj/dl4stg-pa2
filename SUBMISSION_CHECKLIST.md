@@ -37,7 +37,7 @@ Report learned values as mean (seed 0, seed 1), errors to three significant figu
 - Submit one PDF through the LMS with all Q1 headings, Q2.1-Q2.17, Tables 1-6, Figures 1-6, captions and GIF paths.
 - Put the actual GitHub repository link on page 1 and make the repository public at submission time. Publication waits until local work is ready.
 - Include code, final checkpoints, measurements, training logs and GIFs. The large dataset and local virtual environment are excluded; the verified download script and dependency lists support reproduction.
-- Disclose AI prompts, corresponding outputs and edits honestly. The earlier Claude prompts are currently unavailable and have an explicit temporary missing marker; invented prompts do not satisfy this requirement.
+- Disclose AI prompts, corresponding outputs and edits honestly. The disclosure includes available verbatim requests and nine retrospective prompts labelled as reconstructed, with outcomes and edits. The original prompt record for the initial assistance has not been supplied. The final guard explicitly retains this unresolved requirement; reconstructed prompts do not replace the historical record.
 - Preserve the prediction commits and phase logs. The report retrieves the original committed answers, rather than a later rewrite.
 - Retain both seed outcomes, including weak runs. The D_k5 seed-1 sleep/wake interruption is recorded in `results/sleep_interruption.json` and disclosed in the report's timing context.
 - Run `python report/build.py --final` and inspect the rendered PDF pages before submission. A successful build is insufficient without visual inspection and a real public repository link.

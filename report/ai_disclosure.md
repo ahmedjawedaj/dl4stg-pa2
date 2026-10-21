@@ -1,13 +1,11 @@
 # AI-use disclosure
 
-**Tools and roles.** Claude (Anthropic) prepared the initial implementation and report drafts. Codex (OpenAI) independently reviewed the implementation against the handout and then took over local execution at my request. Its reviews are in `reviews/` and the execution record is in `WORK_LOG.md`. Reported measurements are produced locally on {{HARDWARE}}.
+**Tools, outputs and roles.** Claude (Anthropic) supplied the initial Q2 implementation, experiment scripts, Q1 proposal and report drafts. Codex (OpenAI) reviewed that work against the handout, corrected implementation and reporting issues, executed the experiments, analysed results and checked the PDF layout. Execution and review evidence is in `WORK_LOG.md` and `reviews/`. Measurements were produced locally on {{HARDWARE}}.
 
-**Outputs and responsibility.** Claude supplied the initial Q2 code, experiment scripts, Q1 proposal, partial Q2 prose and report builder, and revised them after the independent reviews. Codex verified the checks in the actual environment, corrected local setup, added tested recovery for interrupted runs, ran the experiments, analysed the results and inspected the PDF layout. Claude stopped editing before training. Numerical claims come from recorded experiment outputs. This disclosure does not claim that I personally performed automated checks or inspected every result.
-
-**User prompts and corresponding outputs.**
+**Record limitation.** The original prompts for the initial assistance have not been supplied for this report. The available requests and retrospective sequence below do not recover that missing record. Full prompt-disclosure compliance therefore remains unresolved.
 
 {{AI_PROMPTS}}
 
-**Edits to generated work and verification.**
+**Edits and verification.**
 
 {{AI_EDITS}}

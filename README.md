@@ -83,8 +83,10 @@ D_dil64. Optional D+B was not added, with the updated Table 5 decision in `resul
 
 The report retains both seeds and records the original weak D candidate. The selected refinement
 improves the old final model's mean normal-speed error by 17.2%, but its forecasts remain blurred.
-Exact symmetry fixes consistency but does not establish accurate motion. The original Claude-prompt section is a
-clearly marked draft placeholder that Ahmed will complete before submission. All measurements,
+Exact symmetry fixes consistency but does not establish accurate motion. The AI disclosure contains available verbatim requests and nine clearly labelled reconstructed
+review prompts with recorded outcomes. The original prompt record for the initial assistance
+has not been supplied, so full prompt-disclosure compliance remains unresolved and the PDF
+remains marked draft. All measurements,
 the Q2.5/Q2.11 prediction commits and the sleep/wake timing record are preserved.
 
 On 20 October, Ahmed authorized one additional candidate, `D_dil64`, to investigate the weak

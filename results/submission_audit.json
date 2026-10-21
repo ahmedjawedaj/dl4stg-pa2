@@ -4,30 +4,34 @@
     "answer_length_limits": true,
     "saved_metric_arrays_match_summaries_and_test_count": true,
     "same_final_cases_and_eight_correctly_timed_GIFs": true,
-    "full_26_page_render_visually_inspected": true,
     "real_page1_repository_hyperlink": true,
     "only_deferred_Claude_prompts_remain": true,
-    "public_repository_and_exact_uploaded_PDF_verified": true,
+    "public_repository_and_exact_uploaded_PDF_verified": false,
     "fourteen_full_runs_30_epochs": true,
     "D_selection_matches_eight_validation_runs": true,
     "adaptive_refinement_disclosed_and_selected_before_new_test": true,
-    "automatic_draft_title_visible": true
+    "automatic_draft_title_visible": true,
+    "previously_reviewed_pages_1_to_25_unchanged_except_footers": true,
+    "new_disclosure_pages_26_and_27_visually_inspected": true,
+    "reconstructed_prompts_distinguished_from_verbatim_history": true
   },
   "deferred_by_user": [
     "original Claude prompts"
   ],
-  "pending": [],
-  "pdf_sha256": "075f2075376f284f2cb2255100e3b938a08f624744ec68eb4bc9f48496387ccd",
-  "reviewed_at": "2026-10-20T14:09:17.995206+05:00",
+  "pending": [
+    "Verify publication of updated disclosure PDF"
+  ],
+  "pdf_sha256": "b1affb0bc0e24fb366d44008c242f645570ef2e32956d43159d7c64d00703140",
+  "reviewed_at": "2026-10-21T22:01:49.471233+05:00",
   "repository": {
     "isEmpty": false,
     "url": "https://github.com/ahmedjawedaj/dl4stg-pa2",
     "visibility": "PUBLIC"
   },
   "report_sources_sha256": {
-    "report/ai_disclosure.md": "056efdf0bb166b083f9f74248f27e26e517ca93789707a4079118c3e23652100",
+    "report/ai_disclosure.md": "a199a077b26aef180c85a660f7f920092b0b2b26bf683eb48ca3cb74ad48c55f",
     "report/build.py": "b26d0308aa83187ba7bee91f0dbb09de9c989afad53ff1db7b881df0492a3bf7",
-    "report/manual.json": "9e38530f4aecd802f24a7ba95aa44330e768871377b6f2eeaa3b858ff9b7cfdf",
+    "report/manual.json": "77d2255e729a4986592eaba9063126371f285c7ad2ff7160d0e2f43ef0aa4b26",
     "report/q1.md": "72d3f36ac780d4049a3d35561aa975ca8ca6df9c6dca29218587274b0ff112cc",
     "report/q1_arch.dot": "e74ec8824023ec7118fb6e359d3ae61baf398146a83a1cfc8c7d683ebfd23dcd",
     "report/q1_graph.dot": "4c73566ed14631599b57700d23e2c5df26d59d6809b72ade62960f3dccedf156",
@@ -49,7 +53,7 @@
     "report_unchanged": false,
     "refinement_update_at": "2026-10-20T14:09:17.995206+05:00"
   },
-  "previous_uploaded_pdf_git_blob_sha": "592f7e6e01e4ae4dd654eaf6d2f28e03d3e94678",
+  "previous_uploaded_pdf_git_blob_sha": "5369d36dab740080c238c3c372371edd071e8bb9",
   "refinement": {
     "original_preserved_commit": "995521b",
     "plan_commit": "8debfef",
@@ -62,6 +66,13 @@
     "optional_D_plus_B": false,
     "original_test_exposure_disclosed": true
   },
-  "uploaded_pdf_git_blob_sha": "5369d36dab740080c238c3c372371edd071e8bb9",
-  "published_artifacts_commit": "6fe10e167a0cc0855b357d9ac1142f831b76b702"
+  "published_artifacts_commit": "6fe10e167a0cc0855b357d9ac1142f831b76b702",
+  "page_count": 27,
+  "disclosure_revision": {
+    "at": "2026-10-21T22:01:49.471233+05:00",
+    "reconstructed_prompt_count": 9,
+    "original_initial_prompt_record_supplied": false,
+    "full_prompt_disclosure_compliance": "unresolved",
+    "strict_final_guard": "still blocks missing original record"
+  }
 }
