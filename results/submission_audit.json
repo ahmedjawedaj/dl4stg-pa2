@@ -5,7 +5,7 @@
     "saved_metric_arrays_match_summaries_and_test_count": true,
     "same_final_cases_and_eight_correctly_timed_GIFs": true,
     "real_page1_repository_hyperlink": true,
-    "public_repository_and_exact_uploaded_PDF_verified": false,
+    "public_repository_and_exact_uploaded_PDF_verified": true,
     "fourteen_full_runs_30_epochs": true,
     "D_selection_matches_eight_validation_runs": true,
     "adaptive_refinement_disclosed_and_selected_before_new_test": true,
@@ -19,12 +19,13 @@
     "Q1_assumptions_and_equations_clarified": true,
     "Q2_predictions_and_measured_results_preserved": true,
     "rewritten_disclosure_pages_26_27_visually_inspected": true,
-    "scientific_pages_1_25_unchanged_after_prompt_rewrite": true
+    "scientific_pages_1_25_unchanged_after_prompt_rewrite": true,
+    "rendered_text_has_no_em_dashes_or_semicolons": true
   },
   "deferred_by_user": [],
   "pending": [],
-  "pdf_sha256": "35a8159706ac95e4172821a4595ff234d26a307af50fe6a8b6d67ae0de642b1e",
-  "reviewed_at": "2026-10-22T13:35:23+05:00",
+  "pdf_sha256": "23519f54627f04bcccb97beebff488a4bd4173f3f2a56ee3e828bf8b4076782e",
+  "reviewed_at": "2026-10-28T21:29:42+05:00",
   "repository": {
     "isEmpty": false,
     "url": "https://github.com/ahmedjawedaj/dl4stg-pa2",
@@ -33,7 +34,7 @@
   "report_sources_sha256": {
     "report/ai_disclosure.md": "060af4f333bce153b9de8618934fa8cf50b27b6361dec6d45a0d40cc0edfb722",
     "report/build.py": "b26d0308aa83187ba7bee91f0dbb09de9c989afad53ff1db7b881df0492a3bf7",
-    "report/manual.json": "c9bcab2c067c9d8c27d808281e7fd40deefea40203e64a10d58cb59eab7647f8",
+    "report/manual.json": "663e9dff148fabfaa3bf6eccfd657a84eb6aca99a0ec1c6880a1752d3e109810",
     "report/q1.md": "14341b9d91acbb2e97c0df7bbdf2ea9dad638b9cb616b72f0caaded820ab6ca8",
     "report/q1_arch.dot": "b30e21ba554fa384de73e9eb47e5fb42d9bf6035e2c676958b3033971fd256c7",
     "report/q1_graph.dot": "4c73566ed14631599b57700d23e2c5df26d59d6809b72ade62960f3dccedf156",
@@ -43,7 +44,7 @@
     "report/style.css": "db31876dc314bd0a3f1256c0f2a7d0a3c140c7c94067718714061fb35f8ad7d3",
     "report/title.md": "e66e3b7fa04b1d5411dd9abdb19c6e040c588f00d2b488dcd7bf9978ded90384"
   },
-  "publication_verified_at": "2026-10-21T22:02:13.655871+05:00",
+  "publication_verified_at": "2026-10-28T21:29:42+05:00",
   "follow_up_status": "DELETED after completed refinement and verified publication",
   "final_readiness_review": {
     "at": "2026-10-19T23:52:29.716346+05:00",
@@ -56,6 +57,7 @@
     "refinement_update_at": "2026-10-20T14:09:17.995206+05:00"
   },
   "previous_uploaded_pdf_git_blob_sha": "71558f6d87a03cf02e9cb36236536fa98eaf60ac",
+  "uploaded_pdf_git_blob_sha": "ddb2fb1a0d553b9b69ab9efb4c656b4347034ed6",
   "refinement": {
     "original_preserved_commit": "995521b",
     "plan_commit": "8debfef",
@@ -77,8 +79,8 @@
     "strict_final_guard": "passes with no content or asset gaps",
     "course_policy_acceptance_verified": false
   },
-  "local_final_pdf": "/Users/ahmedjawed/Documents/books/AI/MS/3rd Semester/Deep Learning for Time, Space and Graph/output/pdf/DL4STG_PA2_report.pdf",
-  "publication_status": "Final local revision intentionally not committed or pushed, as requested by Ahmed",
+  "local_final_pdf": "/Users/ahmedjawed/Documents/books/AI/MS/3rd Semester/Deep Learning for Time, Space and Graph/output/pdf/Ahmed_Jawed_25280040_DL4STG_PA2_report.pdf",
+  "publication_status": "Final text-cleaned report and documentation published to the public main branch",
   "previous_published_artifacts_commit": "593d38270a694ed0782d5ce8480abeee29a83787",
   "tutorial_review": {
     "at": "2026-10-21T22:50:15.167654+05:00",

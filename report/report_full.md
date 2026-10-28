@@ -430,7 +430,7 @@ Yes. Relative to A's 1x E(5) = 0.0219, Table 5 gives B = 0.0229 (+4.46%), C = 0.
 
 C and D offer a stronger trade for applications that must handle all three speeds. D reduces A's 2x and 3x E(2) by 36.1% and 38.3%. Against C, D improves 1x E(5) by 0.822% and 3x E(2) by 2.11%, but worsens 1x E(2) by 2.85%, so it does not dominate every metric. For original 1x clips alone, A remains more accurate.
 
-D has the same 480,784 parameters as C. Its recorded training and inference times are 24.1 seconds per epoch and 0.466 seconds per 1,000 videos, versus C's 31.2 and 1.11 seconds. These are measurements from different sessions on the same Mac, so they do not establish a controlled speedup from dilation. The larger practical benefit of the refinement is avoiding the original D seed-0 plateau without increasing parameter count; the gain over the already useful C is small.
+D has the same 480,784 parameters as C. Its recorded training and inference times are 24.1 seconds per epoch and 0.466 seconds per 1,000 videos, versus C's 31.2 and 1.11 seconds. These are measurements from different sessions on the same Mac, so they do not establish a controlled speedup from dilation. The larger practical benefit of the refinement is avoiding the original D seed-0 plateau without increasing parameter count. The gain over the already useful C is small.
 
 </div>
 
@@ -477,7 +477,7 @@ Group averaging is exact in real arithmetic because its eight terms can be reind
 
 Wrapping B improves original E(5) by 2.97% and improves both transformed errors. For D, wrapping slightly worsens original E(5) by 0.0703% before rounding, with small increases for both seeds. Its 1x and 2x E(2) also increase by about 0.15%, while 3x E(2) improves by 0.268%. Mirrored and rotated errors improve from 0.0274 and 0.0284 to 0.0272. The wrapper therefore buys exact agreement and transformed-scene accuracy at a very small original-scene cost.
 
-Inference rises from 1.21 to 10.2 seconds per 1,000 videos for B (8.43x), and from 0.466 to 3.84 seconds for D (8.23x). Parameter count and underlying training time are unchanged. Averaging can blur inverse-aligned forecasts that disagree in position or shape, and hurt an originally accurate orientation when other views are worse. Mean squared error averaged over the whole symmetry orbit cannot increase relative to the corresponding average base-model risk, but error on the original orientation can increase. D exhibits that small original-speed cost here; its Figure 6 predictions also remain visibly blurred.
+Inference rises from 1.21 to 10.2 seconds per 1,000 videos for B (8.43x), and from 0.466 to 3.84 seconds for D (8.23x). Parameter count and underlying training time are unchanged. Averaging can blur inverse-aligned forecasts that disagree in position or shape, and hurt an originally accurate orientation when other views are worse. Mean squared error averaged over the whole symmetry orbit cannot increase relative to the corresponding average base-model risk, but error on the original orientation can increase. D exhibits that small original-speed cost here. Its Figure 6 predictions also remain visibly blurred.
 
 </div>
 
@@ -487,7 +487,7 @@ Inference rises from 1.21 to 10.2 seconds per 1,000 videos for B (8.43x), and fr
 
 The mirror disagreement is fixed, but the forecast is still not fully correct. For video 9658 at 1x, Figure 6(a) rows 3 and 4 now agree: C_M is 7.95e-17 versus A's 0.00621. The refined final seed-0 model predicts two moving patches that approach and merge, rather than the featureless output of the original D candidate. However, the 9 and 3 lose their strokes, and the overlap becomes a diffuse mass. Its E_M = 0.0292 is still worse than A's 0.0230 on this case, although much better than the original final model's 0.0451. Consistent motion-like output is an improvement, not a successful reconstruction of both digits.
 
-Group averaging fixes commutation exactly. The A-to-C results attribute most of the population-level fast-motion gain to speed exposure; the C-to-refined-D comparison supports a smaller additional 3x gain from the changed spatial connections. These comparisons do not isolate each change's effect on this individual video. In Figure 6(b), video 9026 now has localized but blurred forecasts, with E(2) = 0.0271, 0.0374 and 0.0388 at 1x, 2x and 3x. The fast-speed errors improve on A's 0.0644 and 0.0616, but the normal-speed error exceeds A's 0.0186. At faster speeds, the patches still lose digit shape and miss precise positions and bounce timing.
+Group averaging fixes commutation exactly. The A-to-C results attribute most of the population-level fast-motion gain to speed exposure. The C-to-refined-D comparison supports a smaller additional 3x gain from the changed spatial connections. These comparisons do not isolate each change's effect on this individual video. In Figure 6(b), video 9026 now has localized but blurred forecasts, with E(2) = 0.0271, 0.0374 and 0.0388 at 1x, 2x and 3x. The fast-speed errors improve on A's 0.0644 and 0.0616, but the normal-speed error exceeds A's 0.0186. At faster speeds, the patches still lose digit shape and miss precise positions and bounce timing.
 
 </div>
 
@@ -550,6 +550,6 @@ The final model learned useful predictive structure, but a general motion rule i
 
 **Produced work, edits and verification.**
 
-**Work produced.** AI assistance produced the implementation and experiment scripts, the Q1 proposal, measured-result analysis, tables, figures, GIFs and report drafts. The initial and subsequent tool roles are identified above; code, logs and reviews provide the corresponding artifacts.
+**Work produced.** AI assistance produced the implementation and experiment scripts, the Q1 proposal, measured-result analysis, tables, figures, GIFs and report drafts. The initial and subsequent tool roles are identified above. Code, logs and reviews provide the corresponding artifacts.
 
 **Subsequent edits and checks.** Codex corrected package setup, added and tested per-epoch recovery, corrected report assembly, numerical formatting and GIF timing, and revised Q1 assumptions and data-availability claims. Window, transformation, gradient and reach checks supported implementation review. Reported measurements retain both seeds, the original prediction commits and the disclosed later D experiment.
