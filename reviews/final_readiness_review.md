@@ -1,5 +1,15 @@
 # Final readiness review
 
+## TA tutorial alignment review, 21 October
+
+Reviewed the 11 Q1 and 16 Q2 slides and their diagrams against the handout, report and implementation. Tightened Q1 information cutoff, rainfall assumptions, full forecast description, temporal/spatial/head equations, and uncertainty claims. Qualified a Q2 causal overclaim without changing code, predictions or results. The rebuilt report remains 27 pages and passed visual inspection. The separate video recordings were not supplied and were not reviewed. Detailed mapping: `reviews/tutorial_alignment_review.md`. Changes remain local and uncommitted.
+
+
+## Final local report, 21 October
+
+Ahmed requested a final local PDF and clarified that the nine prompts should serve as a technically informed guide rather than an exact message record. The report therefore labels them as representative retrospective prompts, pairs them with recorded outcomes and edits, and retains accurate tool attribution. The disclosure occupies two pages within the 27-page report. The final build passes with no placeholders or draft banner. No scientific measurements or prediction commits changed. This local revision is not committed or pushed, per Ahmed's instruction. Earlier draft-status notes below are historical.
+
+
 ## Disclosure revision, 21 October
 
 At Ahmed's request, the disclosure now includes nine condensed reconstructed review prompts and recorded outcomes, alongside available verbatim requests and accurate tool attribution. The revised disclosure is two pages and the report is 27 pages. Pages 1-25 are unchanged except total-page footers. Both new disclosure pages were rendered and visually checked. The original prompt record for the initial assistance remains unsupplied, so the strict final guard still records that gap. This revision is not a recovered historical transcript or a certification of full disclosure compliance.
@@ -45,7 +55,3 @@ The ConvLSTM implementation is small and follows the specified computation. The 
 This review found and fixed a real execution-wrapper bug: run_all.sh waited for logs/db_decision.txt, while the actual Table 5 decision is results/db_decision.json. It now reads the JSON boolean and rejects an invalid value. Completed experiments were launched through phase scripts and were unaffected. README commands now consistently use the virtual environment and explain checkpoint reuse, separate-clone reproduction, retraining, report dependencies and the remaining draft field.
 
 Verification after the fix: shell syntax checks, the existing window/transformation checks, the interruption/resume regression check, and isolated wrapper runs for false, true and invalid decision values all passed. The twelve full training logs, parameter/reach limits, stored metric summaries, validation choice and Table 5 decision were rechecked. No training or evaluation outputs were overwritten.
-
-## Remaining submission work
-
-Ahmed will add the original Claude prompt disclosure later, as requested. Then rebuild with --final, inspect any changed pages, and upload the PDF through the LMS. Shortening the report is optional. Understand the architecture, evidence and weak D outcome before submission or a possible viva.

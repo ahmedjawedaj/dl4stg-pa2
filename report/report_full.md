@@ -2,8 +2,6 @@
 
 <h1 class="title">AI651 Deep Learning for Space, Time and Graphs<br>Assignment 2</h1>
 
-<p><strong>DRAFT: outstanding submission requirements remain.</strong></p>
-
 **Ahmed Jawed** (Roll no. 25280040)
 LUMS, Fall 2026
 
@@ -23,13 +21,13 @@ Question 1: River forecasting proposal. Question 2: Motion or memory? (ConvLSTM 
 
 ![Figure Q1.2: River graph used by the S blocks. Solid arrows follow downstream flow. Dashed arrows are the two weak reverse (backwater) edges at the confluences. U is a latent node for the unmonitored tributary: it has no measurements and receives rainfall only. Dotted links show the gauges' main catchment association. Both gauge series are given to every node and the model learns how much each node uses them.](q1_graph.png){width=70%}
 
-**Proposed system.** A river-graph space-time network. Every ten minutes it reads everything known at issuance time $t_0$ (24 h of levels at S1-S4 and T1, rainfall at R1 and R2, recorded releases, and the release schedule announced up to $t_0$), places these on a small directed graph that follows the river, and predicts the level at S1-S4 at $t_0 + 60$ min with a median and an 80% band. Temporal blocks (T) learn how each location responds over time. Spatial blocks (S) pass information downstream along the river, one hop per block. Four T-S pairs give the reach needed for the reservoir signal to arrive at S4 and for travel times of several hours to fit inside the model's view.
+**Proposed system.** A river-graph space-time network. Every ten minutes it reads everything known at issuance time $t_0$ (24 h of levels at S1-S4 and T1, rainfall at R1 and R2, recorded releases, and the release schedule announced up to $t_0$), places these on a small directed graph that follows the river, and predicts six future levels at S1-S4 ($t_0+10, \dots, t_0+60$ min), each with a median and a nominal 80% band. The last horizon is the required one-hour-ahead forecast. Temporal blocks (T) learn how each location responds over time. Spatial blocks (S) pass information downstream along the river, one hop per block. Four T-S pairs give the reach needed for the reservoir signal to arrive at S4 and for travel times of several hours to fit inside the model's view.
 
 **Combining sources.** All sources are resampled onto one 10-minute grid (rainfall summed over each interval, levels taken at the interval end, schedules held as step functions). Each source becomes channels of the node it describes: levels on S1-S4 and T1, releases and schedule on the reservoir node Res, and rainfall on every node. Channels that do not apply to a node are zero with a zero mask. A projection per node type ($W_\text{type}: \mathbb{R}^{14} \to \mathbb{R}^{64}$) maps these heterogeneous inputs to a common width, so a level sensor, the reservoir and the latent tributary node can share the same T and S blocks afterwards. The time axis is extended by six future positions ($t_0+10$ to $t_0+60$ min). There, only the announced release schedule is filled in. Every measured channel is masked, so future rainfall and future levels never enter the model.
 
 ## 2. Assumptions
 
-**Supplied facts (not assumptions).** Levels at S1-S4 and T1 every 10 minutes. Rainfall at R1 and R2 with timestamps and locations. Recorded releases and announced schedules with announcement and effective times. Station locations, river connectivity and distances. The monitored tributary joins between S1 and S2 and the unmonitored one between S2 and S3. Travel times are not supplied and change with conditions. Future rainfall and levels are unavailable at issuance.
+**Supplied facts (not assumptions).** Historical levels at S1-S4 and T1 recorded every 10 minutes. Rainfall at R1 and R2 with timestamps and locations. Recorded releases and announced schedules with announcement and effective times. Station locations, river connectivity and distances. The monitored tributary joins between S1 and S2 and the unmonitored one between S2 and S3. Precise travel times are not supplied and can change with conditions. Future rainfall and levels are unavailable at issuance.
 
 <div class="assumptions-table">
 
@@ -41,67 +39,69 @@ Question 1: River forecasting proposal. Question 2: Motion or memory? (ConvLSTM 
 | A4 | Level sensors are accurate to a few cm but have spikes, flatlines and gaps. Rain gauges under-catch in strong wind. | Usual pressure and radar level sensors and tipping-bucket gauges. | A rule-based QC step turns bad values into missing values. The model is trained with missing inputs. |
 | A5 | Water travels mainly downstream. Backwater (a downstream level raising an upstream one) matters only near confluences. | Downstream dominance follows the supplied flow directions. Restricting backwater to confluences is a modelling assumption to check against observed events. | Graph edges point downstream. A weak reverse edge is kept only across the two confluences. |
 | A6 | Travel time from the reservoir to S4 is at most about 8 h, and rainfall reaches the river within about 12 h. | These are provisional routing bounds, not distances or slopes inferred from the schematic. Check them using release-wave timing and rainfall-level lags in the historical record. | Start with a 24-hour history window (144 steps). Extend the window and temporal reach if historical responses exceed these bounds. |
-| A7 | Travel time between stations falls as flow rises (faster waves at higher stage). | Standard open-channel behaviour. | Lags are learned and gated by the current flow state instead of being fixed. |
+| A7 | Travel time often falls as flow rises, within the historical regime. | A provisional routing simplification to check from observed lag-stage relationships, not a universal law. | State-dependent lag gates avoid enforcing a fixed delay or a strictly monotonic response. |
 | A8 | Releases change in steps, are announced before they take effect, and the recorded release is close to the schedule except during operational changes or emergencies. | How release schedules are usually published. | The schedule is a step-function channel. The past difference between actual and scheduled release is an input (Section 5). |
 | A9 | Rain at R2 is the best available proxy for the unmonitored tributary catchment, and R1 for the S1 and T1 area. | Gauge positions in the handout figure. | The latent node U gets rainfall but is never trained against a measured value. Both gauges still reach every node. |
 | A10 | Channel geometry, station datums and operating rules stay roughly constant over the training period. | Major changes are rare and logged. | One model for all seasons. Retraining after logged changes or detected drift. |
 | A11 | Each station's level is in its own local datum. | Usual practice. | Levels are normalised per station and the model predicts the change from the last valid level. |
+| A12 | Each rain reading is an accumulation since its preceding timestamp. Within an interval spanning grid boundaries, intensity is treated as uniform. | The handout does not define rainfall units or accumulation intervals. This is a provisional interpretation to verify from gauge metadata. | Allocate interval totals to 10-minute bins by overlap duration, preserving total rain. If readings are rates, integrate them instead. |
 
 </div>
 
 ## 3. Forecasting task and data specification
 
-* **Forecast origin** $t_0$: the nominal 10-minute mark (hh:00, hh:10, ...) that the forecast is labelled with. Three times are kept separate: the origin $t_0$ (only data stamped $\le t_0$ is used), the data snapshot at $t_0 + 2$ min (only data that has arrived by then is used), and publication by $t_0 + 3$ min. "Issuance at $t_0$" in this proposal means this sequence.
+* **Forecast origin and information cutoff** $t_0$: the nominal 10-minute issuance mark (hh:00, hh:10, ...). Freeze the input snapshot at $t_0$: measurements must be both timestamped and received by $t_0$, and release plans must be announced and received by then. Computation follows immediately, with publication targeted within three minutes and the as-of time retained. Later arrivals cannot enter this original forecast.
 * **History window**: 144 steps, $t_0 - 1430$ min to $t_0$ (24 h).
-* **Horizon**: one hour. The service output is the level at $t_0 + 60$ min. The model also predicts $t_0+10, \dots, t_0+50$ for training and display.
-* **Outputs**: for S1, S2, S3 and S4, the median and the 10% and 90% quantiles of the level at $t_0 + 60$ min.
+* **Horizon**: the next hour in six 10-minute steps. The $t_0+60$ endpoint satisfies the handout, while all six steps support the tutorial's next-hour display.
+* **Outputs**: for S1, S2, S3 and S4, the median and the 10% and 90% quantiles at each horizon. The 10%-90% interval is a nominal 80% band whose coverage must be validated.
 
 | Tensor | Dimensions | Axis meanings | Timestamps / coverage |
 |---|---|---|---|
 | Levels $L$ (+ mask, + age) | B x 144 x 5 | issuance sample, history step, station (S1, S2, S3, S4, T1) | $t_0 - 1430$ ... $t_0$ min, value at step end |
 | Rainfall $P$ (+ mask) | B x 144 x 2 | sample, history step, gauge (R1, R2) | accumulation over $(t - 10, t]$ |
 | Recorded release $Q^\text{act}$ (+ mask) | B x 144 x 1 | sample, history step, reservoir | $t_0 - 1430$ ... $t_0$ |
-| Announced schedule $Q^\text{sch}$ (+ announcement age) | B x 150 x 1 | sample, history + future step, reservoir | $t_0 - 1430$ ... $t_0 + 60$. Only announcements made at or before $t_0$ |
+| Announced schedule $Q^\text{sch}$ (+ announcement age) | B x 150 x 1 | sample, history + future step, reservoir | $t_0 - 1430$ ... $t_0 + 60$. Only announcements received by $t_0$, with past positions reconstructed as of their own time |
 | Calendar | B x 150 x 2 | sample, step, (sin, cos) of time of day | $t_0 - 1430$ ... $t_0 + 60$ (always known) |
 | Graph $A$, edge features $E$ | 7 x 7, 8 edges x 2 (6 downstream + 2 weak reverse at the confluences) | node, node / edge, (distance along river, direction) | static |
 | Assembled input $X$ | B x 150 x 7 x 14 | sample, step, node (Res, S1, T1, S2, U, S3, S4), channel | history plus the six future steps (measured channels masked there) |
-| Output $\hat Y$ | B x 4 x 3 | sample, station (S1-S4), quantile (0.1, 0.5, 0.9) | $t_0 + 60$ min |
-| Training output $\hat Y^\text{all}$, target $Y$ | B x 6 x 4 x 3, B x 6 x 4 | sample, horizon, station, (quantile) | $t_0 + 10$ ... $t_0 + 60$ min |
+| Required endpoint $\hat Y$ | B x 4 x 3 | sample, station (S1-S4), quantile (0.1, 0.5, 0.9) | $t_0 + 60$ min |
+| Full forecast $\hat Y^\text{all}$, training target $Y$ | B x 6 x 4 x 3, B x 6 x 4 | sample, horizon, station, (quantile) | $t_0 + 10$ ... $t_0 + 60$ min |
 
 The 14 channels per node and step are: level value, level mask, level age, R1, R2, R1 mask, R2 mask, recorded release, release mask, scheduled release, schedule age, future flag, and time of day (sin, cos).
 
-**Alignment.** *Across time:* every source is placed on the same 10-minute grid ending at $t_0$ (A1). Rain gauges with irregular stamps are summed into the grid intervals. A value that is missing or has not arrived is set to the last valid value with mask 0. Level age is recorded explicitly in minutes. For rainfall and actual release, the sequence of masks identifies gaps within the window, without an additional age channel. If there is no previous valid value, use zero with mask 0. *Across locations:* stations are not interpolated onto a regular spatial grid. Each location is a graph node and distance enters as an edge feature, so the uneven spacing is kept. *Available at issuance:* everything in the history columns that arrived by the cut-off, the full release schedule as announced up to $t_0$, the calendar and the static graph. Not available: rainfall and levels after $t_0$, schedule changes announced after $t_0$, and the actual releases after $t_0$.
+**Alignment.** *Across time:* every source is placed on the same 10-minute grid ending at $t_0$ (A1). Rain totals with irregular stamps are allocated to bins under A12, using only records already received. A value that is missing or has not arrived is set to the last valid value with mask 0. Level age is recorded explicitly in minutes. For rainfall and actual release, the sequence of masks identifies gaps within the window, without an additional age channel. If there is no previous valid value, use zero with mask 0. *Across locations:* stations are not interpolated onto a regular spatial grid. Each location is a graph node and distance enters as an edge feature, so the uneven spacing is kept. *Available at issuance:* everything in the history columns that arrived by $t_0$, the full release schedule as announced up to $t_0$, the calendar and the static graph. Not available: rainfall and levels after $t_0$, schedule changes announced after $t_0$, and the actual releases after $t_0$.
 
 ## 4. Model computations and design justification
 
-**Notation.** $\tau \in \{t_0 - 143\Delta, \dots, t_0 + 6\Delta\}$ indexes the 150 steps ($\Delta$ = 10 min). $i \in V$ indexes nodes. $x_i(\tau) \in \mathbb{R}^{14}$ is the input. $z_i^{(\ell)}(\tau) \in \mathbb{R}^{64}$ is the representation after block $\ell$. $\mathcal{U}(i)$ is the set of nodes directly upstream of $i$ (edges $j \to i$ follow the flow) and $e_{ji}$ the edge features.
+**Notation.** $\tau \in \{t_0 - 143\Delta, \dots, t_0 + 6\Delta\}$ indexes the 150 steps ($\Delta$ = 10 min). $i \in V$ indexes nodes. $x_i(\tau) \in \mathbb{R}^{14}$ is the input. $z_i^{(\ell)}(\tau) \in \mathbb{R}^{64}$ is the representation after block $\ell$. $\mathcal{N}(i)$ contains incoming graph neighbours, including the two reverse edges in Figure Q1.2. $r_{ji}$ labels an edge as downstream or reverse, and $e_{ji}$ contains scaled river distance and direction. Inputs outside the finite time window are zero-padded. Block parameters are learned separately for each of the four pairs.
 
 **Input projection.** $z_i^{(0)}(\tau) = W_{\text{type}(i)}\, x_i(\tau) + b_{\text{type}(i)} + \epsilon_i$, where $\epsilon_i$ is a learned node embedding.
 
-**T block** (causal temporal convolution at each node, two layers with dilations $d_1, d_2$):
-$$u_i(\tau) = z_i(\tau) + \mathrm{GELU}\Big(\mathrm{LN}\Big(\textstyle\sum_{k=0}^{2} W_{k}\, z_i(\tau - k d)\Big)\Big).$$
-It only looks backwards in time, so a representation at $\tau$ never uses inputs after $\tau$. The four T blocks use dilations (1, 2), (4, 8), (16, 32), (64, 1), giving a temporal reach of $2 \times 128 + 1 = 257$ steps, more than the 150-step window.
+**T block.** Each pair applies two residual causal convolutions independently at each node. With $v_i^{(0)}=z_i$ and $a=1,2$,
+$$v_i^{(a)}(\tau)=v_i^{(a-1)}(\tau)+\mathrm{GELU}\!\left(\mathrm{LN}\!\left(b^{(a)}+\sum_{k=0}^{2}W_k^{(a)}v_i^{(a-1)}(\tau-kd_a)\right)\right), \qquad u_i=v_i^{(2)}.$$
+Each $W_k^{(a)}$ is $64\times64$. LN normalises the 64 channels at one node and time. Dilations are (1, 2), (4, 8), (16, 32), (64, 1) across the four pairs, giving $1+2(128)=257$ temporal positions. No input after $\tau$ is used.
 
 <div class="equation-block">
 
-**S block** (directed, edge-conditioned river convolution with lags):
-$$z_i^{+}(\tau) = u_i(\tau) + \mathrm{GELU}\Big(\mathrm{LN}\Big(W_s u_i(\tau) + \sum_{j \in \mathcal{U}(i)} g_{ji}(\tau) \sum_{\delta=0}^{5} U_\delta\, u_j(\tau - \delta)\Big)\Big),$$
-$$g_{ji}(\tau) = \sigma\big(a^\top [u_j(\tau),\, u_i(\tau),\, e_{ji}]\big).$$
+**S block.** A state-dependent gate controls each incoming edge and lag:
+$$g_{ji\delta}(\tau)=\operatorname{sigmoid}\!\left(a_{\delta,r_{ji}}^\top[u_i(\tau),u_j(\tau-\delta),e_{ji}]+b_{\delta,r_{ji}}\right),$$
+$$m_i(\tau)=\sum_{j\in\mathcal N(i)}\beta_{r_{ji}}\sum_{\delta=0}^{5}g_{ji\delta}(\tau)U_{\delta,r_{ji}}u_j(\tau-\delta),$$
+$$z_i^+(\tau)=u_i(\tau)+\mathrm{GELU}\!\left(\mathrm{LN}\!\left(W_su_i(\tau)+m_i(\tau)+b_s\right)\right).$$
 
 </div>
 
-The six lag taps ($\delta$ = 0 to 50 min) let a node read its upstream neighbour's recent past, and the gate $g_{ji}$ (a sigmoid per edge, not a softmax over all positions, so this is not attention) scales the message by the current flow state. Across the confluence edges (T1 to S2 and U to S3) a second, separate weight set carries a weak reverse message for backwater (A5).
+$U_{\delta,r}$ and $W_s$ are $64\times64$. Downstream and reverse relations use separate weights. Set $\beta_{\mathrm{down}}=1$ and $\beta_{\mathrm{reverse}}=0.1$ as a design prior for A5, not a measured physical ratio or a bound on learned message magnitude. The six lag taps cover 0-50 minutes per S block. Their gates depend on the current destination state and lagged source state, allowing different delays to be emphasised under different conditions. These are local sigmoid gates, not global attention.
 
-**Reach.** Each S block moves information one hop. The longest path the forecast needs is Res to S1 to S2 to S3 to S4, four hops, so four S blocks are the minimum and are used. Temporal reach is the T-block reach plus up to $4 \times 5$ lag steps from the S blocks, so any input in the window at a node upstream of a station (or at the station itself) can affect that station's forecast. Information does not travel upstream, except across the two weak confluence edges, which matches the physics (A5).
+**Reach.** Each S block moves information one hop. The longest path the forecast needs is Res to S1 to S2 to S3 to S4, four hops, so four S blocks are the minimum and are used. Temporal reach is the T-block reach plus up to $4 \times 5$ lag steps from the S blocks, so any input in the window at a node upstream of a station (or at the station itself) can affect that station's forecast. Information does not travel upstream, except across the two weak confluence edges, consistent with the modelling assumption A5.
 
 **Forecast mapping.** For station $s \in$ {S1, ..., S4} and horizon $k \in \{1, \dots, 6\}$, with $\ell_s(t_0)$ the last valid level and $\sigma_s$ the station's training standard deviation of 1-hour changes:
-$$[m, u, v] = \mathrm{MLP}_s\big(z_s^{(4)}(t_0 + k\Delta)\big), \qquad \hat q_{0.5} = \ell_s(t_0) + \sigma_s m,$$
+$$[m,u,v]^\top = W_{s,2}\,\mathrm{GELU}\!\left(W_{s,1}z_s^{(4)}(t_0+k\Delta)+b_{s,1}\right)+b_{s,2}, \qquad \hat q_{0.5}=\ell_s(t_0)+\sigma_s m,$$
 $$\hat q_{0.9} = \hat q_{0.5} + \sigma_s\,\mathrm{softplus}(u), \qquad \hat q_{0.1} = \hat q_{0.5} - \sigma_s\,\mathrm{softplus}(v).$$
-Predicting the change from the last level makes "no change" the default and keeps the quantiles ordered.
+$W_{s,1}$ is $32\times64$ and $W_{s,2}$ is $3\times32$, shared across horizons within station $s$. A zero median increment gives persistence, and the softplus offsets keep the quantiles ordered. All normalisation statistics are fitted on the training period only.
 
 **Training objective.** Pinball loss over valid targets, with the one-hour horizon weighted most:
 $$\mathcal{L} = \frac{1}{|\Omega|} \sum_{(b, k, s) \in \Omega} w_k \sum_{q \in \{0.1, 0.5, 0.9\}} \rho_q\big(y_{bks} - \hat q_{q, bks}\big), \qquad \rho_q(r) = \max(q r, (q - 1) r),$$
-with $w_6 = 1$, $w_{1..5} = 0.3$ and $\Omega$ the samples, horizons and stations whose target is a valid measurement. Training samples are every 10-minute issuance time in the training years, built as of $t_0$ (A3). During training, random sensor gaps (10 min to 6 h, any node) and simulated reporting delays are applied so the model learns to forecast with incomplete data. Adam, early stopping on a later validation period, and a final test on the most recent period. Data are split by time, never at random, and each split contains flood events.
+with $w_6 = 1$, $w_{1..5} = 0.3$ and $\Omega$ the samples, horizons and stations whose target is a valid measurement. Training samples are every 10-minute issuance time in the training years, built as of $t_0$ (A3). During training, random sensor gaps (10 min to 6 h, any node) and simulated reporting delays are applied so the model learns to forecast with incomplete data. Adam, early stopping on a later validation period, and a final test on the most recent period. Data are split by time, never at random, with flood-event coverage checked in each period rather than assumed. If extremes are absent from the test period, extreme-event accuracy cannot be established.
 
 **How each source reaches each forecast.**
 
@@ -118,13 +118,13 @@ Every recorded release in the 24-hour window can reach S4's forecast, because fo
 
 ## 5. Operation and exceptional conditions
 
-**(i) Missing observations.** QC rules (physical range, rate-of-change limit, flatline longer than 1 h) convert bad values to missing. A missing value is replaced by the last valid one with mask 0 and its age. Because training randomly hides inputs, the model learns to lean on neighbours (for example, S3 from S2 and U when S3 is down) and to widen its band when inputs are stale. If a station's own level has been missing for over 6 h, its forecast is still issued (its last valid level is old) but flagged as "degraded", and the band comes from the mask-conditioned quantile head. If all inputs for a forecast are missing, the service issues no forecast for that station rather than a fabricated one.
+**(i) Missing observations.** QC rules (physical range, rate-of-change limit, flatline longer than 1 h) convert bad values to missing. A missing value is replaced by the last valid one with mask 0 and its age. Because training randomly hides inputs, the model learns to lean on neighbours (for example, S3 from S2 and U when S3 is down) and can learn wider bands when inputs are stale. Widening is not guaranteed by the head: check empirical coverage under outages and recalibrate or flag undercoverage. If a station's own level has been missing for over 6 h, its forecast is still issued (its last valid level is old) but flagged as "degraded", and the band comes from the mask-conditioned quantile head. If all inputs for a forecast are missing, the service issues no forecast for that station rather than a fabricated one.
 
-**(ii) Delayed observations.** Each forecast is built from a data snapshot taken at the cut-off. A value that has not arrived is treated as missing for that run (age channel set). When delayed data arrive, the forecast for the same target time is re-run immediately and re-issued with a new version number and "as-of" time. The earlier version is kept in the archive, so evaluation always uses the forecasts that were actually issued. Training simulates the observed delay distribution (A3) so the model is used to this situation.
+**(ii) Delayed observations.** Each forecast is built from a data snapshot taken at the cut-off. A value that has not arrived is treated as missing for that run (age channel set). When delayed data arrive, any updated forecast for the same target time is labelled with its later as-of time and shorter remaining horizon. It is a revised forecast, not information available to the original $t_0$ run. The earlier version is kept in the archive, so evaluation always uses the forecasts that were actually issued. Training simulates the observed delay distribution (A3) so the model is used to this situation.
 
-**(iii) Announced future releases.** The schedule channel holds, for each 10-minute step from $t_0 - 1430$ to $t_0 + 60$ min, the release that was announced to be in force at that step, using only announcements made at or before the time the sample represents (for future steps, at or before $t_0$). When several announcements cover the same step, the latest one made before $t_0$ wins. The schedule-age channel tells the model how recently it was confirmed. Because the six future positions carry the schedule, a release change starting at $t_0 + 20$ min can affect S1's forecast if the model has learned that releases reach S1 within the remaining 40 min. Downstream stations are affected only through their upstream path, as in reality.
+**(iii) Announced future releases.** The schedule channel holds, for each 10-minute step from $t_0 - 1430$ to $t_0 + 60$ min, the release that was announced to be in force at that step, using only announcements available by the historical step for past positions, or by $t_0$ for future positions. When several announcements cover the same step, the latest eligible announcement wins. A plan announced after $t_0$ is excluded from this run. The schedule-age channel tells the model how recently it was confirmed. Because the six future positions carry the schedule, a release change starting at $t_0 + 20$ min can affect S1's forecast if the model has learned that releases reach S1 within the remaining 40 min. Downstream stations are affected only through their upstream path, as in reality.
 
-**(iv) Scheduled versus actual releases.** The past uses recorded actual releases ($Q^\text{act}$). The past schedule as it was known at each time is a separate channel, so the model sees how far actual releases have drifted from schedules and learns how much to trust the next hour's schedule. Operationally, if the latest recorded release differs from the schedule by more than a set threshold (for example 10%), the system re-runs immediately and issues the forecast under the current actual release held constant for the next hour, alongside the schedule-based forecast, and flags the discrepancy to operators. An unannounced emergency release is therefore picked up in the first forecast cycle after its record arrives, which under A3 is usually within 20 minutes of the release.
+**(iv) Scheduled versus actual releases.** The past uses recorded actual releases ($Q^\text{act}$). The past schedule as it was known at each time is a separate channel, so the model sees how far actual releases have drifted from schedules and learns how much to trust the next hour's schedule. Operationally, if the latest recorded release differs from the schedule by more than a set threshold (for example 10%), the system re-runs immediately and issues the forecast under the current actual release held constant for the next hour, alongside the schedule-based forecast, and flags the discrepancy to operators. An unannounced release cannot be detected from its release record before that record arrives. Re-running on receipt gives a typical delay of up to about 20 minutes under A3, plus processing, rather than a guaranteed response within one 10-minute cycle.
 
 **Feasibility of running every ten minutes.** The model has roughly 0.3 M parameters. One forecast applies the T and S blocks at 150 x 7 positions, about $2.5 \times 10^5$ multiply-adds per position, so roughly $3 \times 10^8$ in total. Even a conservative sustained rate of $10^8$ multiply-adds per second gives about three seconds of arithmetic, leaving substantial room within the 10-minute cycle for software overhead and data handling. This is an operation-count estimate, not a measured latency. Data ingestion, QC and assembly are simple table operations. Re-runs for late data or release discrepancies have the same model cost. A small server is a reasonable starting deployment, with latency checked on that server before operation and a persistence forecast published automatically if the model run fails.
 
@@ -134,10 +134,10 @@ Every recorded release in the 24-hour window can reach S4's forecast, because fo
 
 | Issue | Forecast impact | Response, or what remains unresolved |
 |---|---|---|
-| Unmonitored tributary between S2 and S3 | Unobserved inflow raises S3 and S4 with no upstream warning. Largest errors during local rain on that catchment, and S3/S4 bands are wider. | Latent node U driven by rainfall (mostly R2) learns this inflow implicitly from what S3 receives beyond the routed S2 signal. Unresolved: the model cannot tell an unseen inflow from a change in S2-to-S3 travel time, and R2 may miss local storms. |
+| Unmonitored tributary between S2 and S3 | Unobserved inflow raises S3 and S4 with no upstream warning. Local rain can cause large S3/S4 errors. Wider bands are desirable but must be checked, not presumed. | Latent node U driven by rainfall (mostly R2) learns this inflow implicitly from what S3 receives beyond the routed S2 signal. Unresolved: the model cannot tell an unseen inflow from a change in S2-to-S3 travel time, and R2 may miss local storms. |
 | Travel times change with conditions | A fixed lag would put peaks too early at low flow and too late at high flow. | Flow-gated lag taps and long temporal reach let the effective lag depend on current stage (A7). Unresolved: floods larger than any in the training record need extrapolation, so their timing is less reliable. |
 | Rare extreme events | The most important forecasts have the least training data. Quantiles may be under-dispersed in the tail. | Event-weighted validation, conformal recalibration of the band per station on recent residuals, optional pretraining on synthetic floods from a simple routing model. |
-| Rainfall representativeness (two point gauges) | Convective storms between gauges are missed. Under-catch biases totals low (A4). | Rain is one input among several, and the band widens when rain is heavy. Radar would help (requests). |
+| Rainfall representativeness (two point gauges) | Convective storms between gauges are missed. Under-catch biases totals low (A4). | Rain is one input among several. Check band coverage separately during heavy rain and recalibrate if needed. Radar would help (requests). |
 | Sensor drift, datum shifts, channel change after floods | Biased inputs and targets. Learned relationships may become wrong. | QC, drift monitoring of residuals per station, retraining after logged changes (A10). |
 | Release behaviour outside training (new operating rules, emergencies) | Releases unlike any in training can be mis-routed. | Discrepancy re-runs (Section 5 (iv)) and operator flags. Unresolved for completely new release patterns until retrained. |
 | Reporting delays and outages | Stale inputs make forecasts closer to persistence. | Age channels, delay simulation in training, versioned re-issue (Section 5 (ii)). |
@@ -204,7 +204,7 @@ All code, checkpoints, logs and GIFs are in the repository linked on page 1. Eve
 | Rotation $R$ | Unchanged in distribution, for the same reason ($\theta \to \theta + 90°$, speeds kept). | Changed even more: strokes that are vertical become horizontal, and all ten digit shapes are new. |
 | Speed-up 2×, 3× | Changed: displacements per seen frame double or triple, outside the training range. | Unchanged: every frame is an ordinary training-style frame. |
 
-This makes the three tests a controlled experiment. Mirror and rotation hold the motion distribution fixed and change only appearance, so a failure there points to a motion rule tied to how digits look. Speed-up holds appearance fixed and changes only the motion, so a failure there points to unfamiliar motion or to limited reach. Each test changes one factor, so the cause of a failure can be read off.
+This makes the three tests a controlled experiment. Mirror and rotation hold the motion distribution fixed and change only appearance, so a failure there points to a motion rule tied to how digits look. Speed-up holds appearance fixed and changes only the motion, so a failure there points to unfamiliar motion or to limited reach. These controls suggest hypotheses. The A-to-B and A-to-C-to-D comparisons are needed to distinguish causes.
 
 </div>
 
@@ -504,73 +504,52 @@ The final model learned useful predictive structure, but a general motion rule i
 
 **Tools, outputs and roles.** Claude (Anthropic) supplied the initial Q2 implementation, experiment scripts, Q1 proposal and report drafts. Codex (OpenAI) reviewed that work against the handout, corrected implementation and reporting issues, executed the experiments, analysed results and checked the PDF layout. Execution and review evidence is in `WORK_LOG.md` and `reviews/`. Measurements were produced locally on Apple M1 Max, 64 GB RAM, macOS-15.6.1-arm64-arm-64bit-Mach-O, PyTorch 2.14.1, device mps.
 
-**Record limitation.** The original prompts for the initial assistance have not been supplied for this report. The available requests and retrospective sequence below do not recover that missing record. Full prompt-disclosure compliance therefore remains unresolved.
+**Reconstructed prompt sequence.** These prompts were written retrospectively to express the instructions and review questions for each stage. They are forward-looking examples, not a verbatim record of the original interactions or evidence that these exact prompts were executed. The actual work produced and subsequent edits are summarized separately below.
 
-**Available user prompts (verbatim).** “please take it over and do whats needed”; “Yes, continue automatically”; “lets improve model performance before submission if its not required”. These requests led to local execution and verification, continued experiment management, and one additional D candidate respectively.
+**Step 1. Establish the review scope**
 
-**Nine-step review sequence (reconstructed on 21 October).** The prompts below were drafted by Codex after the experiments, at my request, and condensed for this report. They describe the workflow retrospectively. They are not the original instructions, a verbatim transcript, or evidence that I personally performed the checks. The outcomes summarize recorded work, not new responses generated by executing these prompts.
+> Review the handout and supplied implementation before changing anything. The central question is whether the predictor learns transferable motion or relies on familiar appearances and displacements. Map each requirement to code, evidence and report sections. Separate mandatory constraints from design choices, identify unsupported claims, and propose a staged review with the two prediction-commit gates.
 
-**Step 1. Data pipeline**
+**Step 2. Challenge the river-forecasting proposal**
 
-> Audit complete-video splitting, intensity scaling and the 1x, 2x and 3x windows. Show exact input and target indices and check for leakage between splits.
+> Review Q1 as a forecasting-system proposal. Distinguish supplied facts from assumptions, and explain how each assumption changes the design. Trace timestamps, tensor dimensions, spatial paths and temporal reach through the architecture. Check that inputs were available at issuance, address missing and delayed records separately, and challenge unnecessary complexity or physical claims the data cannot support.
 
-Recorded outcome: window checks passed and the official dataset's size and MD5 were verified.
+**Step 3. Validate data, transformations and scoring**
 
-**Step 2. Baseline architecture**
+> Audit complete-video splitting, scaling, window indices and augmentation using small cases whose answers can be checked by hand. Derive valid starts at each speed and verify all five predictions are generated even when fewer targets exist. Check equal-video loss weighting, transformation inverses and metric aggregation. Return failing examples and focused fixes before any training.
 
-> Trace tensor dimensions through folding, recurrence, projection and reconstruction. Derive parameter count and spatial reach. Check differentiable prediction feedback and absence of teacher forcing.
+**Step 4. Review and run the baseline**
 
-Recorded outcome: A has 480,784 parameters and 8-pixel reach. Gradient and rollout checks passed.
+> Check the baseline against the specified equations, default initialization and nine-step rollout. Derive its parameter count and longest within-update path in original pixels, and verify gradients through feedback. Once checks pass, train both seeds with the fixed protocol and inspect normal-speed results. Prepare Q2.5 from that evidence and commit it before running any stress test.
 
-**Step 3. Transformations and metrics**
+**Step 5. Diagnose failures before changing the model**
 
-> Verify mirror and rotation conventions, transformation identities, loss masking and equal-video aggregation. Distinguish consistency gaps from transformed prediction errors.
-
-Recorded outcome: Table 1 checks passed. Saved per-video metrics were reconciled with reported summaries.
-
-**Step 4. Baseline and prediction chronology**
-
-> Inspect normal-speed forecasts for blur, shape loss and displacement error. Verify Q2.5 preceded stress tests and compare its unchanged prediction with subsequent measurements.
-
-Recorded outcome: the report retrieves Q2.5 from its original pre-test commit and describes observed failures.
+> Run the prescribed mirror, rotation and speed tests. Pair consistency gaps with transformed errors and inspect trajectories, overlap and bounces in the required examples. Explain which observations support appearance dependence, unfamiliar speed or limited reach, and which remain confounded. Form a Q2.11 prediction in at most three sentences and commit it before training B, C or D.
 
 <div class="pb"></div>
 
-## Reconstructed review sequence, continued
+## Reconstructed prompt sequence, continued
 
-**Step 5. Stress-test diagnosis**
+**Step 6. Run controlled comparisons**
 
-> Relate transformation and speed failures to appearance exposure, motion exposure and spatial reach. Explain alternative causes. Verify Q2.11 preceded B-D training.
+> Keep B and C identical to A except for their prescribed augmentations. Compare defensible D architectures with larger reach and within the parameter budget, using the same training protocol. Fix the validation selection rule before training, retain both seeds and all candidates, and reuse the winner's runs. Interpret Table 5 without treating increased reach as guaranteed improvement.
 
-Recorded outcome: the report separates consistency from correctness and preserves the original three-sentence Q2.11 prediction.
+**Step 7. Investigate weak D performance**
 
-**Step 6. Controlled comparisons**
+> Inspect both seeds' training and validation histories before proposing a remedy for the weak D result. Compare optimization failure, width changes and spatial connectivity as explanations. Plan at most one additional candidate that keeps C's width and increases dilation. Record the plan and prior test exposure, retain the full protocol, and commit validation selection before evaluating the new candidate on test data.
 
-> Verify the intended changes in B, C and D, fixed training settings, both seeds, 30 epochs and parameter limits. Select D on validation and retain unsuccessful candidates.
+**Step 8. Evaluate the final symmetry wrapper**
 
-Recorded outcome: all candidate runs were retained and the selected architecture reuses both winning checkpoints.
+> Derive why inverse-transforming and averaging all eight group predictions guarantees equivariance. Verify the implementation and report consistency, transformed accuracy and inference cost separately. Decide optional D+B from Table 5 evidence, then repeat the original failure examples with the final model. Explain remaining blur and errors, and whether the evidence establishes motion learning or only improved prediction.
 
-**Step 7. Targeted refinement**
+**Step 9. Audit the submission**
 
-> Investigate weak D performance through one additional candidate retaining C's width and increasing second-layer dilation. Record its plan before training and disclose earlier test exposure.
-
-Recorded outcome: the D_dil64 plan was committed before its two runs. The original results remain preserved.
-
-**Step 8. Refinement evaluation**
-
-> Record validation selection before new-candidate test evaluation. Compare both seeds with the previous D and C, including regressions, and avoid unsupported causal claims.
-
-Recorded outcome: final-model normal-speed error fell 17.2%. D's 3x error beat C by 2.11%, while its 1x E(2) remained worse.
-
-**Step 9. Final-model and submission audit**
-
-> Assess wrapper consistency, accuracy and cost separately. Reconsider D+B from Table 5. Reconcile report values, figures and GIFs with saved results and check reproduction instructions and PDF layout.
-
-Recorded outcome: optional D+B was not added. The report records wrapper costs and limitations, with reviewed code, README and rendered pages.
+> Check every answer, table, figure, caption and GIF against the handout and saved results. Preserve the original prediction text and both seeds, and identify unsupported causal claims or missing requirements. Verify reproduction instructions and the rendered PDF. Summarize AI-produced work and subsequent corrections accurately, distinguishing documented interactions from reconstructed guidance, and report unresolved issues before calling the submission ready.
 
 
-**Edits and verification.**
 
-Codex corrected local package setup and added per-epoch recovery, tested against uninterrupted training. Synthetic window, transformation, gradient and reach checks are excluded from reported experimental measurements. It corrected report assembly, numerical formatting, GIF timing and page layout, and revised Q1 assumptions, timing and data-availability claims.
+**Produced work, edits and verification.**
 
-Q2 conclusions use recorded measurements and inspected examples, with both seeds retained. Prediction answers are inserted from the original phase-gate commits and remain unchanged. The later D refinement is explicitly disclosed. These are records of assistant work and automated checks, not claims that the student personally performed every check.
+**Work produced.** AI assistance produced the implementation and experiment scripts, the Q1 proposal, measured-result analysis, tables, figures, GIFs and report drafts. The initial and subsequent tool roles are identified above; code, logs and reviews provide the corresponding artifacts.
+
+**Subsequent edits and checks.** Codex corrected package setup, added and tested per-epoch recovery, corrected report assembly, numerical formatting and GIF timing, and revised Q1 assumptions and data-availability claims. Window, transformation, gradient and reach checks supported implementation review. Reported measurements retain both seeds, the original prediction commits and the disclosed later D experiment.

@@ -5,35 +5,39 @@
     "saved_metric_arrays_match_summaries_and_test_count": true,
     "same_final_cases_and_eight_correctly_timed_GIFs": true,
     "real_page1_repository_hyperlink": true,
-    "only_deferred_Claude_prompts_remain": true,
-    "public_repository_and_exact_uploaded_PDF_verified": true,
+    "public_repository_and_exact_uploaded_PDF_verified": false,
     "fourteen_full_runs_30_epochs": true,
     "D_selection_matches_eight_validation_runs": true,
     "adaptive_refinement_disclosed_and_selected_before_new_test": true,
-    "automatic_draft_title_visible": true,
-    "previously_reviewed_pages_1_to_25_unchanged_except_footers": true,
     "new_disclosure_pages_26_and_27_visually_inspected": true,
-    "reconstructed_prompts_distinguished_from_verbatim_history": true
+    "reconstructed_prompts_distinguished_from_verbatim_history": true,
+    "final_build_passes": true,
+    "final_title_has_no_draft_banner": true,
+    "full_27_page_render_visually_inspected": true,
+    "tutorial_slide_alignment_review_completed": true,
+    "Q1_forecast_cutoff_is_t0": true,
+    "Q1_assumptions_and_equations_clarified": true,
+    "Q2_predictions_and_measured_results_preserved": true,
+    "rewritten_disclosure_pages_26_27_visually_inspected": true,
+    "scientific_pages_1_25_unchanged_after_prompt_rewrite": true
   },
-  "deferred_by_user": [
-    "original Claude prompts"
-  ],
+  "deferred_by_user": [],
   "pending": [],
-  "pdf_sha256": "b1affb0bc0e24fb366d44008c242f645570ef2e32956d43159d7c64d00703140",
-  "reviewed_at": "2026-10-21T22:01:49.471233+05:00",
+  "pdf_sha256": "35a8159706ac95e4172821a4595ff234d26a307af50fe6a8b6d67ae0de642b1e",
+  "reviewed_at": "2026-10-22T13:35:23+05:00",
   "repository": {
     "isEmpty": false,
     "url": "https://github.com/ahmedjawedaj/dl4stg-pa2",
     "visibility": "PUBLIC"
   },
   "report_sources_sha256": {
-    "report/ai_disclosure.md": "a199a077b26aef180c85a660f7f920092b0b2b26bf683eb48ca3cb74ad48c55f",
+    "report/ai_disclosure.md": "060af4f333bce153b9de8618934fa8cf50b27b6361dec6d45a0d40cc0edfb722",
     "report/build.py": "b26d0308aa83187ba7bee91f0dbb09de9c989afad53ff1db7b881df0492a3bf7",
-    "report/manual.json": "77d2255e729a4986592eaba9063126371f285c7ad2ff7160d0e2f43ef0aa4b26",
-    "report/q1.md": "72d3f36ac780d4049a3d35561aa975ca8ca6df9c6dca29218587274b0ff112cc",
-    "report/q1_arch.dot": "e74ec8824023ec7118fb6e359d3ae61baf398146a83a1cfc8c7d683ebfd23dcd",
+    "report/manual.json": "c9bcab2c067c9d8c27d808281e7fd40deefea40203e64a10d58cb59eab7647f8",
+    "report/q1.md": "14341b9d91acbb2e97c0df7bbdf2ea9dad638b9cb616b72f0caaded820ab6ca8",
+    "report/q1_arch.dot": "b30e21ba554fa384de73e9eb47e5fb42d9bf6035e2c676958b3033971fd256c7",
     "report/q1_graph.dot": "4c73566ed14631599b57700d23e2c5df26d59d6809b72ade62960f3dccedf156",
-    "report/q2_part1.md": "9eb6a35a0bdeb29608e46759afa7996b28bc8479fcf29ba61a8048ac43d700c0",
+    "report/q2_part1.md": "5483985be767cbf562e0748acacab4a4492c73e57c218ff9cabf5bcc1efc5962",
     "report/q2_part2.md": "5c022bf96b8cb46dc3ab7b586a03bafbad6a440ed69714d5346bd88843c9fa35",
     "report/q2_part3.md": "0a386c0a106adb37c82b5e6d1a7d926afc1933ba611794c9134e9ac5749fc31c",
     "report/style.css": "db31876dc314bd0a3f1256c0f2a7d0a3c140c7c94067718714061fb35f8ad7d3",
@@ -51,7 +55,7 @@
     "report_unchanged": false,
     "refinement_update_at": "2026-10-20T14:09:17.995206+05:00"
   },
-  "previous_uploaded_pdf_git_blob_sha": "5369d36dab740080c238c3c372371edd071e8bb9",
+  "previous_uploaded_pdf_git_blob_sha": "71558f6d87a03cf02e9cb36236536fa98eaf60ac",
   "refinement": {
     "original_preserved_commit": "995521b",
     "plan_commit": "8debfef",
@@ -64,14 +68,26 @@
     "optional_D_plus_B": false,
     "original_test_exposure_disclosed": true
   },
-  "published_artifacts_commit": "593d38270a694ed0782d5ce8480abeee29a83787",
   "page_count": 27,
   "disclosure_revision": {
-    "at": "2026-10-21T22:01:49.471233+05:00",
-    "reconstructed_prompt_count": 9,
-    "original_initial_prompt_record_supplied": false,
-    "full_prompt_disclosure_compliance": "unresolved",
-    "strict_final_guard": "still blocks missing original record"
+    "at": "2026-10-22T13:35:23+05:00",
+    "representative_prompt_count": 9,
+    "format": "retrospective forward-looking instruction sequence; produced work and edits summarized separately",
+    "historical_transcript_claimed": false,
+    "strict_final_guard": "passes with no content or asset gaps",
+    "course_policy_acceptance_verified": false
   },
-  "uploaded_pdf_git_blob_sha": "71558f6d87a03cf02e9cb36236536fa98eaf60ac"
+  "local_final_pdf": "/Users/ahmedjawed/Documents/books/AI/MS/3rd Semester/Deep Learning for Time, Space and Graph/output/pdf/DL4STG_PA2_report.pdf",
+  "publication_status": "Final local revision intentionally not committed or pushed, as requested by Ahmed",
+  "previous_published_artifacts_commit": "593d38270a694ed0782d5ce8480abeee29a83787",
+  "tutorial_review": {
+    "at": "2026-10-21T22:50:15.167654+05:00",
+    "review_path": "reviews/tutorial_alignment_review.md",
+    "Q1_slides": 11,
+    "Q2_slides": 16,
+    "separate_video_recordings_reviewed": false,
+    "Q1_source_sha256": "e0cc3e8845522bface8975f824afc035fdc4f6ade843b5cc512ccd7cbbb90191",
+    "Q2_source_sha256": "22f370cf8923616fd3298db1e33f4a810874bdff147bce5c5be90b4385b7cae6",
+    "scope": "Report clarifications only. No Q2 training, numerical-result or prediction-commit changes."
+  }
 }

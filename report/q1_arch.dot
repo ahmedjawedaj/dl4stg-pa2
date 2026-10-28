@@ -14,11 +14,11 @@ digraph G {
       <TR><TD ALIGN="LEFT">Locations, connectivity, river distances</TD><TD ALIGN="LEFT">A: 7 x 7; E: 8 x 2</TD></TR>
     </TABLE>
   >];
-  align [fillcolor="#fff6e5", label="2. Quality checks and time alignment\nRecords stamped <= t0, arrived by t0 + 2 min\n10-min grid: sum rain; align levels; hold schedule in steps"];
+  align [fillcolor="#fff6e5", label="2. Quality checks and time alignment\nRecords stamped and received by t0\n10-min grid: sum rain; align levels; hold schedule in steps"];
   assemble [fillcolor="#fff6e5", label="3. Combine sources on seven river nodes\nX: B x 150 x 7 x 14 (values, masks, ages, calendar)\n144 history + 6 future positions; future measurements masked\nNode-type projection 14 -> 64 + node embedding\nZ0: B x 150 x 7 x 64"];
-  encoder [fillcolor="#eaf7ee", label="4. Repeat four space-time pairs\nT: two causal temporal convolutions, kernel 3, dilated\nthen S: directed river messages, lags 0..5, flow gates\nResidual updates + layer normalization; width 64\nZ4: B x 150 x 7 x 64; spatial reach four hops (Res -> S4)"];
+  encoder [fillcolor="#eaf7ee", label="4. Repeat four space-time pairs\nT: two causal temporal convolutions, kernel 3, dilated\nthen S: directed river messages, lags 0..5, state-dependent gates\nResidual updates + layer normalization; width 64\nZ4: B x 150 x 7 x 64; spatial reach four hops (Res -> S4)"];
   head [fillcolor="#f3eafa", label="5. Select S1-S4 at six future times\nB x 6 x 4 x 64 -> per-station MLP -> (m, u, v)\nq0.5 = last valid level + scale x m\nq0.1 = q0.5 - scale x softplus(v)\nq0.9 = q0.5 + scale x softplus(u)"];
-  forecast [fillcolor="#fde2e2", color="#ad4657", label="Forecast at t0 + 60 min: S1-S4 median + 80% band\nOperational output: B x 4 x 3\nTraining uses six horizons: B x 6 x 4 x 3"];
+  forecast [fillcolor="#fde2e2", color="#ad4657", label="Forecast at t0 + 60 min: S1-S4 median + 80% band\nRequired endpoint: B x 4 x 3\nFull next-hour forecast: B x 6 x 4 x 3"];
   sources -> align;
   align -> assemble;
   assemble -> encoder;
